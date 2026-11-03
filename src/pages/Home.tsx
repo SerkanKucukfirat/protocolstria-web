@@ -9,42 +9,67 @@ import { useQuote } from '../components/Layout'
 import type { HeroHandle } from '../three/hero'
 
 const BASE = import.meta.env.BASE_URL
+const introSeen = () => {
+  try {
+    return !!sessionStorage.getItem('ps-intro')
+  } catch {
+    return true
+  }
+}
 
 // 3D açılış: sahne ayrı bir parça olarak yüklenir, böylece ilk boyama beklemez.
+// Masaüstünde bölüm kaydırma boyunca sabitlenir: kamera şişelere yaklaşır, ilk mesaj çekilir, ikincisi gelir.
 function Hero() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const section = useRef<HTMLElement>(null)
+  const handle = useRef<HeroHandle | null>(null)
   const [ready, setReady] = useState(false)
   const quote = useQuote()
   useEffect(() => {
-    let handle: HeroHandle | null = null
-    let st: ScrollTrigger | null = null
     let alive = true
     import('../three/hero').then(({ createHero }) => {
       if (!alive || !canvas.current) return
       try {
-        handle = createHero(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 })
+        handle.current = createHero(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 })
         setReady(true)
-        st = ScrollTrigger.create({ trigger: section.current, start: 'top top', end: 'bottom top', scrub: true, onUpdate: s => handle?.setProgress(s.progress) })
       } catch {
         // WebGL yoksa yedek görsel kalır
       }
     })
     return () => {
       alive = false
-      st?.kill()
-      handle?.dispose()
+      handle.current?.dispose()
+      handle.current = null
     }
   }, [])
   useEffect(() => {
-    if (reduced() || !section.current) return
+    const el = section.current
+    if (!el) return
+    const desktop = window.innerWidth >= 900 && !reduced()
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ delay: 0.2 })
-        .from('.hero .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
-        .from('.hero .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
-      gsap.to('.hero-copy', { yPercent: -30, opacity: 0, ease: 'none', scrollTrigger: { trigger: section.current, start: 'top top', end: 'bottom top', scrub: true } })
-    }, section)
+      if (!reduced())
+        gsap
+          .timeline({ delay: introSeen() ? 0.2 : 2.9 })
+          .from('.hero .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
+          .from('.hero .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: 'top top',
+          end: desktop ? '+=140%' : 'bottom top',
+          pin: desktop,
+          scrub: 0.8,
+          onUpdate: st => handle.current?.setProgress(st.progress),
+        },
+      })
+      tl.to('.hero-copy', { yPercent: -40, opacity: 0, ease: 'power2.in', duration: 0.4 }, 0)
+      tl.to('.hero-scroll', { opacity: 0, duration: 0.1 }, 0)
+      if (desktop) {
+        tl.fromTo('.hero-copy2 .w > span', { yPercent: 115 }, { yPercent: 0, stagger: 0.03, duration: 0.3, ease: 'power3.out' }, 0.55)
+        tl.fromTo('.hero-copy2 .fade', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.05, duration: 0.2 }, 0.7)
+        tl.to({}, { duration: 0.2 })
+      }
+    }, el)
     return () => ctx.revert()
   }, [])
   return (
@@ -65,6 +90,17 @@ function Hero() {
               Merkeziniz için teklif alın
             </button>
           </div>
+        </div>
+        <div className="hero-copy2" aria-hidden>
+          <p className="eyebrow fade">Hibrit biyoteknolojik yaklaşım</p>
+          <p className="display xl">{splitWords('Exosome mesajı iletir, lipozom güvenle taşır.')}</p>
+          <ul className="hero-tags">
+            {['ProliCell®', 'Exosome', 'EGF', 'Lipozom'].map(t => (
+              <li key={t} className="fade">
+                {t}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <div className="hero-scroll" aria-hidden>
@@ -112,7 +148,7 @@ function Lines() {
     <section className="lines section">
       <div className="wrap lines-grid">
         {(['kabin', 'ev'] as const).map(l => (
-          <Link key={l} to={`/${lines[l].slug}`} className="line-card rv">
+          <Link key={l} to={`/${lines[l].slug}`} className="line-card rv" data-cursor="Keşfet">
             <div className="line-img">
               <img src={img(lines[l].tall)} alt={lines[l].short} loading="lazy" />
             </div>
@@ -193,11 +229,28 @@ function Showcase() {
     const el = wrap.current
     const tr = track.current
     if (!el || !tr || reduced() || window.innerWidth < 900) return
+    const cards = tr.querySelectorAll('.pcard')
+    const skewTo = gsap.quickTo(cards, 'skewX', { duration: 0.5, ease: 'power3.out' })
+    let idle = 0
+    const skew = (v: number) => {
+      skewTo(v)
+      window.clearTimeout(idle)
+      idle = window.setTimeout(() => skewTo(0), 120)
+    }
     const ctx = gsap.context(() => {
       gsap.to(tr, {
         x: () => -(tr.scrollWidth - window.innerWidth + 80),
         ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top top', end: () => `+=${tr.scrollWidth - window.innerWidth}`, pin: true, scrub: 0.6, invalidateOnRefresh: true },
+        scrollTrigger: {
+          trigger: el,
+          start: 'top top',
+          end: () => `+=${tr.scrollWidth - window.innerWidth}`,
+          pin: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          // kaydırma hızına göre kartlar hafifçe eğilir, durunca düzelir
+          onUpdate: st => skew(gsap.utils.clamp(-7, 7, st.getVelocity() / -320)),
+        },
       })
     }, el)
     return () => ctx.revert()
@@ -284,7 +337,7 @@ function Routine() {
         </div>
         <div className="routine-grid" key={night ? 'n' : 'd'}>
           {r.steps.map(s => (
-            <Link key={s.n} to={`/urunler/${s.product}`} className="rcard">
+            <Link key={s.n} to={`/urunler/${s.product}`} className="rcard" data-cursor="İncele">
               <Tilt className="rcard-stage" max={8}>
                 <img src={productImg(s.product)} alt="" loading="lazy" />
               </Tilt>
@@ -342,7 +395,7 @@ function Catalog() {
       </div>
       <div className="insta wrap rv-stagger">
         {[2, 3, 4, 5, 6].map(n => (
-          <a key={n} href={CONTACT.instagram} target="_blank" rel="noreferrer" className="insta-item" aria-label="Instagram @protocol.stria">
+          <a key={n} href={CONTACT.instagram} target="_blank" rel="noreferrer" className="insta-item" aria-label="Instagram @protocol.stria" data-cursor="Instagram">
             <img src={img(`insta${n}`)} alt="" loading="lazy" />
           </a>
         ))}

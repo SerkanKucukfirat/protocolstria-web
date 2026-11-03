@@ -20,9 +20,18 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
       return
     }
     const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>('.rv').forEach(el =>
-        gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }),
-      )
+      gsap.utils.toArray<HTMLElement>('.rv').forEach(el => {
+        // Bölüm başlıkları kelime kelime maskenin arkasından yükselir
+        if (el.matches('h2.display, p.display.l') && splitDom(el)) {
+          gsap.fromTo(
+            el.querySelectorAll('.w > span'),
+            { yPercent: 115 },
+            { yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: 0.045, scrollTrigger: { trigger: el, start: 'top 88%' } },
+          )
+          return
+        }
+        gsap.fromTo(el, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } })
+      })
       gsap.utils.toArray<HTMLElement>('.rv-stagger').forEach(el =>
         gsap.fromTo(
           el.children,
@@ -50,6 +59,40 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
     return () => ctx.revert()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
+}
+
+// Statik başlıkların metnini çalışma anında kelime maskelerine böler (bir kez). <em> gibi öğeler kelime kelime bölünür.
+export function splitDom(el: HTMLElement) {
+  if (el.dataset.split) return true
+  const wrapText = (text: string, into: Node) => {
+    text.split(/(\s+)/).forEach(part => {
+      if (!part) return
+      if (/^\s+$/.test(part)) into.appendChild(document.createTextNode(' '))
+      else {
+        const w = document.createElement('span')
+        w.className = 'w'
+        const i = document.createElement('span')
+        i.textContent = part
+        w.appendChild(i)
+        into.appendChild(w)
+      }
+    })
+  }
+  const walk = (node: Node, into: Node) => {
+    node.childNodes.forEach(c => {
+      if (c.nodeType === 3) wrapText(c.textContent ?? '', into)
+      else if (c.nodeType === 1) {
+        const clone = (c as HTMLElement).cloneNode(false)
+        walk(c, clone)
+        into.appendChild(clone)
+      }
+    })
+  }
+  const frag = document.createDocumentFragment()
+  walk(el, frag)
+  el.replaceChildren(frag)
+  el.dataset.split = '1'
+  return true
 }
 
 // Large headings come in line by line: each word rises from behind a mask.

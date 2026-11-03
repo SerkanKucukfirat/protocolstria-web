@@ -175,6 +175,7 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
   scene.add(world)
   world.add(rig)
   const center = bottle('oxyfusion', tex('oxyfusion'), 2.9)
+  const centerMat = center.material as THREE.MeshPhysicalMaterial
   const left = bottle('exotherm-kabin', tex('exotherm-kabin'), 2.55)
   const right = bottle('lipotherm', tex('lipotherm'), 1.75)
   center.position.set(0, -0.05, 0.4)
@@ -226,6 +227,9 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
   scene.add(dustPts)
 
   let progress = 0
+  let smooth = 0
+  let baseZ = 9
+  let baseX = 0
   const pointer = new THREE.Vector2()
   const target = new THREE.Vector2()
   const onPointer = (e: PointerEvent) => target.set((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1)
@@ -238,8 +242,10 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
     camera.aspect = w / h
     // dar ekranda sahneyi biraz uzaklaştır
     const a = w / h
-    camera.position.z = a < 0.9 ? 12.5 : 9
-    world.position.x = a > 1.15 ? Math.min(1.85, (a - 1.15) * 2.6 + 0.9) : 0
+    baseZ = a < 0.9 ? 10.5 : 9
+    baseX = a > 1.15 ? Math.min(1.85, (a - 1.15) * 2.6 + 0.9) : 0
+    camera.position.z = baseZ
+    world.position.x = baseX
     camera.updateProjectionMatrix()
   }
   const ro = new ResizeObserver(resize)
@@ -252,35 +258,49 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
 
   const clock = new THREE.Clock()
   let raf = 0
+  const ss = (a: number, b: number, x: number) => {
+    const k = Math.min(1, Math.max(0, (x - a) / (b - a)))
+    return k * k * (3 - 2 * k)
+  }
   const tick = () => {
     raf = requestAnimationFrame(tick)
     if (!visible) return
-    const t = clock.getElapsedTime()
+    const t = opts.reduced ? 0 : clock.getElapsedTime()
     pointer.lerp(target, 0.05)
-    const sway = opts.reduced ? 0 : Math.sin(t * 0.45) * 0.42
-    center.rotation.y = sway + pointer.x * 0.35
+    smooth += (progress - smooth) * 0.08
+    // 1. aşama: sahne ortaya gelir, kamera yaklaşır · 2. aşama: yan şişeler açılır, ortadaki geri çekilir
+    const e1 = ss(0, 0.5, smooth)
+    const e2 = ss(0.32, 0.82, smooth)
+    const spread = 1 + e2 * 0.7
+    const sway = Math.sin(t * 0.45) * 0.42
+    const bob = (ph: number) => Math.sin(t * 0.8 + ph) * 0.05
+
+    center.rotation.y = sway + pointer.x * 0.35 + e1 * 0.9
     left.rotation.y = 0.35 + sway * 0.7 + pointer.x * 0.25
     right.rotation.y = -0.4 + sway * 0.7 + pointer.x * 0.25
-    if (!opts.reduced) {
-      center.position.y = -0.05 + Math.sin(t * 0.8) * 0.06
-      left.position.y = -0.22 + Math.sin(t * 0.8 + 1.2) * 0.05
-      right.position.y = -0.62 + Math.sin(t * 0.8 + 2.4) * 0.05
-      dna.rotation.y = t * 0.18
-      dustPts.rotation.y = t * 0.015
-      for (const b of bubbles) {
-        b.g.position.set(b.base.x + Math.sin(t * b.sp + b.ph) * 0.18, b.base.y + Math.cos(t * b.sp * 0.8 + b.ph) * 0.22, b.base.z)
-        b.g.rotation.y = t * 0.2
-      }
-    }
-    // kaydırma: şişeler yükselip açılır, sarmal yaklaşır
-    rig.position.y = progress * 1.2
+    center.position.set(0, -0.05 + bob(0) - e2 * 0.9, 0.4 - e2 * 3.2)
+    centerMat.opacity = 1 - e2 * 0.88
+    centerMat.transparent = centerMat.opacity < 0.999
+    left.position.set(-1.25 - e1 * 0.5 - e2 * 2.6, -0.22 + bob(1.2) + e2 * 0.3, -0.35 + e2 * 0.6)
+    right.position.set(1.3 + e1 * 0.5 + e2 * 2.6, -0.62 + bob(2.4) + e2 * 0.2, -0.1 + e2 * 0.6)
+    left.rotation.z = e2 * 0.22
+    right.rotation.z = -e2 * 0.22
     rig.rotation.x = pointer.y * 0.06
-    left.position.x = -1.25 - progress * 0.8
-    right.position.x = 1.3 + progress * 0.8
-    dna.position.z = -2.6 + progress * 1.6
+
+    dna.rotation.y = t * 0.18 + e1 * 1.2 + e2 * 1.2
+    dna.position.z = -2.6 + e1 * 0.6 + e2 * 0.9
+    dna.scale.setScalar(1 + e2 * 0.3)
+    dustPts.rotation.y = t * 0.015
+    for (const b of bubbles) {
+      b.g.position.set((b.base.x + Math.sin(t * b.sp + b.ph) * 0.18) * spread, (b.base.y + Math.cos(t * b.sp * 0.8 + b.ph) * 0.22) * spread, b.base.z)
+      b.g.rotation.y = t * 0.2
+    }
+    world.position.x = baseX * (1 - e1)
     glass.uniforms.uTime.value = t
     camera.position.x = pointer.x * 0.25
-    camera.lookAt(0, progress * 0.6, 0)
+    camera.position.z = baseZ - e1 * 1.4 + e2 * 0.6
+    camera.position.y = 0.15 + e1 * 0.2
+    camera.lookAt(0, e1 * 0.1, 0)
     renderer.render(scene, camera)
   }
   tick()

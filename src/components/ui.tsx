@@ -49,7 +49,7 @@ export function Tilt({ children, className = '', max = 10 }: { children: ReactNo
 
 export function ProductCard({ p, index }: { p: Product; index?: number }) {
   return (
-    <Link to={`/urunler/${p.slug}`} className="pcard">
+    <Link to={`/urunler/${p.slug}`} className="pcard" data-cursor="İncele">
       <Tilt className="pcard-stage">
         <span className="pcard-glow" />
         <img src={productImg(p.slug)} alt={`${p.name} ${p.sub}`} loading="lazy" />

@@ -6,6 +6,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { CONTACT, lineProducts, lines } from '../data'
 import { reduced } from './motion'
 import { Arrow, Logo, RoundLogo } from './ui'
+import { Cursor, Grain, Preloader, useMagnetic } from './fx'
 
 let lenis: Lenis | null = null
 
@@ -268,6 +269,7 @@ export default function Layout() {
   const [quote, setQuote] = useState<string | null>(null)
   useSmoothScroll()
   usePageChange(curtain)
+  useMagnetic()
   const openQuote = (s?: string) => setQuote(s ?? '')
   return (
     <QuoteCtx.Provider value={openQuote}>
@@ -283,6 +285,9 @@ export default function Layout() {
         <RoundLogo />
       </div>
       {quote !== null && <QuoteModal subject={quote} onClose={() => setQuote(null)} />}
+      <Grain />
+      <Cursor />
+      <Preloader />
     </QuoteCtx.Provider>
   )
 }
