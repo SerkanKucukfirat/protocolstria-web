@@ -50,8 +50,8 @@ function Hero() {
       if (!reduced())
         gsap
           .timeline({ delay: introSeen() ? 0.2 : 2.9 })
-          .from('.hero .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
-          .from('.hero .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
+          .from('.hero-copy .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
+          .from('.hero-copy .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
@@ -65,6 +65,7 @@ function Hero() {
       tl.to('.hero-copy', { yPercent: -40, opacity: 0, ease: 'power2.in', duration: 0.4 }, 0)
       tl.to('.hero-scroll', { opacity: 0, duration: 0.1 }, 0)
       if (desktop) {
+        tl.fromTo('.hero-copy2', { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.52)
         tl.fromTo('.hero-copy2 .w > span', { yPercent: 115 }, { yPercent: 0, stagger: 0.03, duration: 0.3, ease: 'power3.out' }, 0.55)
         tl.fromTo('.hero-copy2 .fade', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.05, duration: 0.2 }, 0.7)
         tl.to({}, { duration: 0.2 })

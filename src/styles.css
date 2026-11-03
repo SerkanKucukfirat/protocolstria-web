@@ -2335,6 +2335,7 @@ html:not(.has-cursor) .cursor-ring {
   grid-area: 1 / 1;
 }
 .hero-copy2 {
+  opacity: 0; /* yalnızca kaydırma zaman çizelgesi görünür yapar */
   align-self: center;
   justify-self: center;
   text-align: center;
