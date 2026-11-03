@@ -26,17 +26,44 @@ function Hero() {
   const [state, setState] = useState<'loading' | 'ready' | 'fallback'>('loading')
   // her denemede yeni bir canvas: kaybolan bir WebGL bağlamı yeniden kullanılmaz
   const [attempt, setAttempt] = useState(0)
+  const canvas2d = useRef<HTMLCanvasElement>(null)
+  const flat = useRef<TreeHandle | null>(null)
+  const flatStarting = useRef(false)
+  const progress = useRef(0)
   const quote = useQuote()
+  // 2D yedek: WebGL yoksa da ağaç her zaman parçacıklı ve hareketli kalır
+  const wasReady = useRef(false)
+  const startFlat = () => {
+    if (flat.current || flatStarting.current || !canvas2d.current) return
+    flatStarting.current = true
+    import('../three/tree2d')
+      .then(({ createTree2D }) => createTree2D(canvas2d.current!, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760, assembled: wasReady.current }))
+      .then(h => {
+        if (handle.current || !canvas2d.current) return h.dispose()
+        h.setProgress(progress.current)
+        flat.current = h
+      })
+      .catch(() => {})
+      .finally(() => (flatStarting.current = false))
+  }
+  useEffect(
+    () => () => {
+      flat.current?.dispose()
+      flat.current = null
+    },
+    [],
+  )
   useEffect(() => {
     let alive = true
     let retry = 0
     const fail = () => {
       if (!alive) return
-      setState('fallback')
       handle.current?.dispose()
       handle.current = null
-      // geçici hatada (bağlam kaybı, görsel yüklenemedi) ağacı birkaç kez yeniden kur
-      if (attempt < 4) retry = window.setTimeout(() => setAttempt(a => a + 1), 1200 + attempt * 1500)
+      setState('fallback')
+      startFlat()
+      // geçici hatada (bağlam kaybı, görsel yüklenemedi) 3D ağacı arka planda yeniden dene
+      if (attempt < 6) retry = window.setTimeout(() => setAttempt(a => a + 1), 1500 + attempt * 2000)
     }
     import('../three/tree')
       .then(({ createTree }) => {
@@ -46,8 +73,12 @@ function Hero() {
       .then(h => {
         if (!h) return
         if (!alive) return h.dispose()
+        h.setProgress(progress.current)
         handle.current = h
+        wasReady.current = true
         setState('ready')
+        flat.current?.dispose()
+        flat.current = null
       })
       .catch(fail)
     return () => {
@@ -70,7 +101,12 @@ function Hero() {
         yPercent: -25,
         opacity: 0,
         ease: 'none',
-        scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true, onUpdate: st => handle.current?.setProgress(st.progress) },
+        scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true, onUpdate: st => {
+            progress.current = st.progress
+            handle.current?.setProgress(st.progress)
+            flat.current?.setProgress(st.progress)
+          },
+        },
       })
     }, el)
     return () => ctx.revert()
@@ -78,7 +114,7 @@ function Hero() {
   return (
     <section className={`hero is-${state}`} ref={section}>
       <div className="hero-bg" aria-hidden />
-      <span className="hero-fallback" style={{ ['--src' as string]: `url(${BASE}img/tree.png)` }} aria-hidden />
+      <canvas ref={canvas2d} className="hero-canvas is-2d" aria-hidden />
       <canvas key={attempt} ref={canvas} className="hero-canvas" aria-label="Binlerce parçacıktan oluşan Protocol Stria ağacı" />
       <div className="wrap hero-in">
         <div className="hero-copy">
