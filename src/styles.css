@@ -1591,8 +1591,24 @@ a:hover > .arrow,
   display: grid;
   place-items: center;
 }
+.prod-tree {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: min(100%, 92%);
+  aspect-ratio: 1;
+  max-height: 100%;
+  background: var(--mint);
+  opacity: 0.08;
+  -webkit-mask: url('/img/tree.png') center / contain no-repeat;
+  mask: url('/img/tree.png') center / contain no-repeat;
+  transform: translateZ(-60px);
+  pointer-events: none;
+}
 .prod-halo {
   position: absolute;
+  inset: 0;
+  margin: auto;
   width: 78%;
   aspect-ratio: 1;
   border-radius: 50%;

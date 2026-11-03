@@ -46,7 +46,6 @@ export default function ProductPage() {
   return (
     <div ref={page} key={p.slug}>
       <section className="prod-hero">
-        <div className="phero-tree" aria-hidden />
         <div className="wrap prod-hero-in">
           <div className="prod-copy">
             <Crumbs items={[{ to: `/${L.slug}`, label: L.short }, { label: p.name }]} />
@@ -75,6 +74,7 @@ export default function ProductPage() {
             </div>
           </div>
           <Tilt className="prod-shot" max={14}>
+            <span className="prod-tree" aria-hidden />
             <span className="prod-halo" />
             <img src={productImg(p.slug)} alt={`${p.name} ${p.sub}`} />
             <span className="prod-floor" />

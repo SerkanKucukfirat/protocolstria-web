@@ -22,9 +22,19 @@ function pickColor(r: number) {
 
 // Ağaç maskesinden (beyaz ağaç, saydam zemin) rastgele noktalar örnekler
 async function sampleTree(url: string, count: number) {
+  // Safari'de img.decode() zaman zaman sebepsiz reddedilir; onload ile yükle, decode'u yalnız dene
   const img = new Image()
-  img.src = url
-  await img.decode()
+  img.decoding = 'async'
+  await new Promise<void>((res, rej) => {
+    img.onload = () => res()
+    img.onerror = () => rej(new Error('tree mask'))
+    img.src = url
+  })
+  try {
+    await img.decode()
+  } catch {
+    /* zaten yüklendi */
+  }
   const S = 480
   const c = document.createElement('canvas')
   c.width = c.height = S
@@ -264,6 +274,8 @@ export async function createTree(canvas: HTMLCanvasElement, opts: TreeOptions, c
       geo.dispose()
       mat.dispose()
       renderer.dispose()
+      // bağlamı hemen bırak: sayfalar arasında gidip gelince tarayıcının bağlam sınırına takılmasın
+      renderer.forceContextLoss()
     },
   }
 }

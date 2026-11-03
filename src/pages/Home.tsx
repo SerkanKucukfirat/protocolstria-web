@@ -24,13 +24,24 @@ function Hero() {
   const section = useRef<HTMLElement>(null)
   const handle = useRef<TreeHandle | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'fallback'>('loading')
+  // her denemede yeni bir canvas: kaybolan bir WebGL bağlamı yeniden kullanılmaz
+  const [attempt, setAttempt] = useState(0)
   const quote = useQuote()
   useEffect(() => {
     let alive = true
+    let retry = 0
+    const fail = () => {
+      if (!alive) return
+      setState('fallback')
+      handle.current?.dispose()
+      handle.current = null
+      // geçici hatada (bağlam kaybı, görsel yüklenemedi) ağacı birkaç kez yeniden kur
+      if (attempt < 4) retry = window.setTimeout(() => setAttempt(a => a + 1), 1200 + attempt * 1500)
+    }
     import('../three/tree')
       .then(({ createTree }) => {
         if (!alive || !canvas.current) return null
-        return createTree(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 }, { onLost: () => alive && setState('fallback') })
+        return createTree(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 }, { onLost: fail })
       })
       .then(h => {
         if (!h) return
@@ -38,13 +49,14 @@ function Hero() {
         handle.current = h
         setState('ready')
       })
-      .catch(() => alive && setState('fallback'))
+      .catch(fail)
     return () => {
       alive = false
+      clearTimeout(retry)
       handle.current?.dispose()
       handle.current = null
     }
-  }, [])
+  }, [attempt])
   useEffect(() => {
     const el = section.current
     if (!el) return
@@ -67,7 +79,7 @@ function Hero() {
     <section className={`hero is-${state}`} ref={section}>
       <div className="hero-bg" aria-hidden />
       <span className="hero-fallback" style={{ ['--src' as string]: `url(${BASE}img/tree.png)` }} aria-hidden />
-      <canvas ref={canvas} className="hero-canvas" aria-label="Binlerce parçacıktan oluşan Protocol Stria ağacı" />
+      <canvas key={attempt} ref={canvas} className="hero-canvas" aria-label="Binlerce parçacıktan oluşan Protocol Stria ağacı" />
       <div className="wrap hero-in">
         <div className="hero-copy">
           <p className="eyebrow intro-up">Kore formülasyonu · Profesyonel çatlak bakım protokolü</p>
