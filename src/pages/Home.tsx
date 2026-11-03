@@ -6,7 +6,7 @@ import { CONTACT, appSteps, g5, img, lineProducts, lines, productImg, products, 
 import { reduced, splitWords, useReveal } from '../components/motion'
 import { Arrow, CtaBand, Marquee, ProductCard, Tilt } from '../components/ui'
 import { useQuote } from '../components/Layout'
-import type { HeroHandle } from '../three/hero'
+import type { TreeHandle } from '../three/tree'
 
 const BASE = import.meta.env.BASE_URL
 const introSeen = () => {
@@ -17,20 +17,20 @@ const introSeen = () => {
   }
 }
 
-// 3D açılış: sahne ayrı bir parça olarak, dokularıyla birlikte yüklenir; hazır olunca yumuşakça belirir.
-// WebGL yoksa ya da tarayıcı bağlamı kapatırsa ürün fotoğrafı görünür.
+// Açılış: logodaki ağaç binlerce parçacıktan oluşur (ayrı parça olarak yüklenir).
+// WebGL yoksa ya da tarayıcı bağlamı kapatırsa sabit ağaç görseli görünür.
 function Hero() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const section = useRef<HTMLElement>(null)
-  const handle = useRef<HeroHandle | null>(null)
+  const handle = useRef<TreeHandle | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'fallback'>('loading')
   const quote = useQuote()
   useEffect(() => {
     let alive = true
-    import('../three/hero')
-      .then(({ createHero }) => {
+    import('../three/tree')
+      .then(({ createTree }) => {
         if (!alive || !canvas.current) return null
-        return createHero(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 }, { onLost: () => alive && setState('fallback') })
+        return createTree(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 }, { onLost: () => alive && setState('fallback') })
       })
       .then(h => {
         if (!h) return
@@ -66,8 +66,8 @@ function Hero() {
   return (
     <section className={`hero is-${state}`} ref={section}>
       <div className="hero-bg" aria-hidden />
-      <img className="hero-fallback" src={img('all-tall')} alt="" aria-hidden />
-      <canvas ref={canvas} className="hero-canvas" aria-label="Protocol Stria kabin ürünleri: Exotherm, Oxyfusion ve Lipotherm 3D" />
+      <span className="hero-fallback" style={{ ['--src' as string]: `url(${BASE}img/tree.png)` }} aria-hidden />
+      <canvas ref={canvas} className="hero-canvas" aria-label="Binlerce parçacıktan oluşan Protocol Stria ağacı" />
       <div className="wrap hero-in">
         <div className="hero-copy">
           <p className="eyebrow intro-up">Kore formülasyonu · Profesyonel çatlak bakım protokolü</p>
