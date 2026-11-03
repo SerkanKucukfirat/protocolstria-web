@@ -46,6 +46,11 @@ function Hero() {
       .catch(() => {})
       .finally(() => (flatStarting.current = false))
   }
+  useEffect(() => {
+    // yedek ağacın dosyasını önceden indir: gerekirse beklemeden devreye girer
+    const id = window.setTimeout(() => import('../three/tree2d').catch(() => {}), 2500)
+    return () => clearTimeout(id)
+  }, [])
   useEffect(
     () => () => {
       flat.current?.dispose()
