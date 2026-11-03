@@ -10,6 +10,7 @@ const PROFILES = profiles as Record<string, Profile>
 
 export type HeroOptions = { base: string; reduced: boolean; mobile: boolean }
 export type HeroHandle = { setProgress: (p: number) => void; dispose: () => void }
+export type HeroCallbacks = { onLost?: () => void }
 
 const MINT = new THREE.Color('#9fd8bd')
 const GREEN = new THREE.Color('#2f8a64')
@@ -27,14 +28,7 @@ function bottle(slug: string, tex: THREE.Texture, height: number) {
   for (let i = 0; i < pos.count; i++) uv.setXY(i, pos.getX(i) / w + 0.5, pos.getY(i) / height)
   geo.translate(0, -height / 2, 0)
   geo.computeVertexNormals()
-  const mat = new THREE.MeshPhysicalMaterial({
-    map: tex,
-    roughness: 0.34,
-    metalness: 0,
-    clearcoat: 0.7,
-    clearcoatRoughness: 0.18,
-    envMapIntensity: 0.55,
-  })
+  const mat = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.32, metalness: 0, envMapIntensity: 0.7 })
   const mesh = new THREE.Mesh(geo, mat)
   mesh.castShadow = false
   return mesh
@@ -137,90 +131,84 @@ function liposome(dot: THREE.Texture, r: number, glass: THREE.Material) {
   return g
 }
 
-export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHandle {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, opts.mobile ? 1.5 : 1.75))
+// Dokular tamamen yüklenmeden sahne döndürülmez: şişeler hiç etiketsiz/boş görünmez.
+export async function createHero(canvas: HTMLCanvasElement, opts: HeroOptions, cb: HeroCallbacks = {}): Promise<HeroHandle> {
+  const loader = new THREE.TextureLoader()
+  const load = async (slug: string) => {
+    const t = await loader.loadAsync(`${opts.base}img/t-${slug}.webp`) // kenar renkleri dışa taşırılmış doku
+    t.colorSpace = THREE.SRGBColorSpace
+    t.anisotropy = 4
+    return t
+  }
+  const [tCenter, tLeft, tRight] = await Promise.all([load('oxyfusion'), load('exotherm-kabin'), load('lipotherm')])
+
+  // Çözünürlük sınırı: büyük ve retina ekranlarda GPU'yu yormamak için
+  const wide = window.innerWidth > 1600
+  const dpr = Math.min(window.devicePixelRatio, opts.mobile ? 1.25 : wide ? 1 : 1.25)
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: dpr < 1.5, alpha: true, powerPreference: 'high-performance' })
+  renderer.setPixelRatio(dpr)
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.05
+  renderer.toneMappingExposure = 1.08
 
   const scene = new THREE.Scene()
   scene.fog = new THREE.Fog('#06180f', 7, 16)
   const pmrem = new THREE.PMREMGenerator(renderer)
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+  const env = pmrem.fromScene(new RoomEnvironment(), 0.04)
+  scene.environment = env.texture
+  pmrem.dispose()
 
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50)
   camera.position.set(0, 0.15, 9)
-
-  scene.add(new THREE.AmbientLight('#cfe9dc', 0.55))
+  scene.add(new THREE.AmbientLight('#cfe9dc', 0.6))
   const key = new THREE.DirectionalLight('#ffffff', 1.6)
   key.position.set(3, 4, 5)
   scene.add(key)
-  const rim = new THREE.PointLight('#6fe0ad', 18, 12, 2)
+  const rim = new THREE.PointLight('#6fe0ad', 16, 12, 2)
   rim.position.set(-3, 1.5, -1.5)
   scene.add(rim)
 
   const dot = dotTexture()
-  const loader = new THREE.TextureLoader()
-  const tex = (slug: string) => {
-    const t = loader.load(`${opts.base}img/t-${slug}.webp`) // kenar renkleri dışa taşırılmış doku
-    t.colorSpace = THREE.SRGBColorSpace
-    t.anisotropy = 8
-    return t
-  }
-
-  // Şişeler: ortada Oxyfusion, solda Exotherm, sağda amber Lipotherm
+  const world = new THREE.Group() // geniş ekranda sahne metnin sağına kayar
   const rig = new THREE.Group()
-  const world = new THREE.Group() // geniş ekranda bütün sahne metnin sağına kayar
   scene.add(world)
   world.add(rig)
-  const center = bottle('oxyfusion', tex('oxyfusion'), 2.9)
-  const centerMat = center.material as THREE.MeshPhysicalMaterial
-  const left = bottle('exotherm-kabin', tex('exotherm-kabin'), 2.55)
-  const right = bottle('lipotherm', tex('lipotherm'), 1.75)
-  center.position.set(0, -0.05, 0.4)
-  left.position.set(-1.25, -0.22, -0.35)
-  right.position.set(1.3, -0.62, -0.1)
-  left.rotation.y = 0.35
-  right.rotation.y = -0.4
+  const center = bottle('oxyfusion', tCenter, 2.9)
+  const left = bottle('exotherm-kabin', tLeft, 2.55)
+  const right = bottle('lipotherm', tRight, 1.75)
   rig.add(center, left, right)
 
-  // yansıyan zemin halkası
   const disc = new THREE.Mesh(
-    new THREE.CircleGeometry(1.9, 96),
+    new THREE.CircleGeometry(1.9, 64),
     new THREE.MeshBasicMaterial({ color: '#2f8a64', transparent: true, opacity: 0.07, depthWrite: false, blending: THREE.AdditiveBlending }),
   )
   disc.rotation.x = -Math.PI / 2
   disc.position.y = -1.5
   rig.add(disc)
 
-  const dna = helix(dot, 5, opts.mobile ? 48 : 70)
+  const dna = helix(dot, 5, opts.mobile ? 40 : 56)
   dna.position.set(0, 0.2, -2.6)
   dna.rotation.z = 0.32
   world.add(dna)
 
   const glass = bubbleMaterial()
-  const bubbles: { g: THREE.Group; base: THREE.Vector3; sp: number; ph: number }[] = []
   const spots: [number, number, number, number][] = [
     [-2.9, 1.3, 0.4, 0.34],
     [2.7, 1.55, -0.6, 0.42],
     [-2.3, -1.1, 1.2, 0.22],
     [2.2, -0.9, 1.4, 0.26],
-    [-0.9, 2.0, -1.2, 0.2],
-    [1.1, -1.85, 0.9, 0.16],
     [3.4, 0.2, -1.8, 0.3],
-    [-3.6, 0.1, -1.5, 0.28],
   ]
-  for (const [x, y, z, r] of opts.mobile ? spots.slice(0, 5) : spots) {
+  const bubbles: { g: THREE.Group; base: THREE.Vector3; sp: number; ph: number }[] = []
+  for (const [x, y, z, r] of opts.mobile ? spots.slice(0, 3) : spots) {
     const g = liposome(dot, r, glass)
     g.position.set(x, y, z)
     world.add(g)
-    bubbles.push({ g, base: new THREE.Vector3(x, y, z), sp: 0.3 + Math.random() * 0.4, ph: Math.random() * 6 })
+    bubbles.push({ g, base: new THREE.Vector3(x, y, z), sp: 0.3 + ((x * 7) % 1 + 1) * 0.2, ph: x + y })
   }
 
-  // ince toz parçacıkları
   const dust: number[] = []
-  for (let i = 0; i < (opts.mobile ? 260 : 520); i++) dust.push((Math.random() - 0.5) * 14, (Math.random() - 0.5) * 8, (Math.random() - 0.5) * 8 - 2)
+  for (let i = 0; i < (opts.mobile ? 140 : 260); i++) dust.push((Math.random() - 0.5) * 14, (Math.random() - 0.5) * 8, (Math.random() - 0.5) * 8 - 2)
   const dg = new THREE.BufferGeometry()
   dg.setAttribute('position', new THREE.Float32BufferAttribute(dust, 3))
   const dustPts = new THREE.Points(dg, new THREE.PointsMaterial({ size: 0.035, map: dot, color: '#bfeedd', transparent: true, opacity: 0.5, depthWrite: false, blending: THREE.AdditiveBlending }))
@@ -229,7 +217,6 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
   let progress = 0
   let smooth = 0
   let baseZ = 9
-  let baseX = 0
   const pointer = new THREE.Vector2()
   const target = new THREE.Vector2()
   const onPointer = (e: PointerEvent) => target.set((e.clientX / window.innerWidth) * 2 - 1, (e.clientY / window.innerHeight) * 2 - 1)
@@ -238,69 +225,62 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
   const resize = () => {
     const w = canvas.clientWidth
     const h = canvas.clientHeight
+    if (!w || !h) return
     renderer.setSize(w, h, false)
     camera.aspect = w / h
-    // dar ekranda sahneyi biraz uzaklaştır
     const a = w / h
     baseZ = a < 0.9 ? 10.5 : 9
-    baseX = a > 1.15 ? Math.min(1.85, (a - 1.15) * 2.6 + 0.9) : 0
-    camera.position.z = baseZ
-    world.position.x = baseX
+    world.position.x = a > 1.15 ? Math.min(1.85, (a - 1.15) * 2.6 + 0.9) : 0
     camera.updateProjectionMatrix()
   }
   const ro = new ResizeObserver(resize)
   ro.observe(canvas)
   resize()
 
+  // Görünmüyorsa (kaydırıldı / sekme arka planda) hiç çizmez
   let visible = true
   const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting))
   io.observe(canvas)
 
-  const clock = new THREE.Clock()
   let raf = 0
-  const ss = (a: number, b: number, x: number) => {
-    const k = Math.min(1, Math.max(0, (x - a) / (b - a)))
-    return k * k * (3 - 2 * k)
+  let lost = false
+  const onLost = (e: Event) => {
+    e.preventDefault()
+    lost = true
+    cancelAnimationFrame(raf)
+    cb.onLost?.()
   }
+  canvas.addEventListener('webglcontextlost', onLost)
+
+  const clock = new THREE.Clock()
   const tick = () => {
+    if (lost) return
     raf = requestAnimationFrame(tick)
-    if (!visible) return
+    if (!visible || document.hidden) return
     const t = opts.reduced ? 0 : clock.getElapsedTime()
     pointer.lerp(target, 0.05)
-    smooth += (progress - smooth) * 0.08
-    // 1. aşama: sahne ortaya gelir, kamera yaklaşır · 2. aşama: yan şişeler açılır, ortadaki geri çekilir
-    const e1 = ss(0, 0.5, smooth)
-    const e2 = ss(0.32, 0.82, smooth)
-    const spread = 1 + e2 * 0.7
-    const sway = Math.sin(t * 0.45) * 0.42
+    smooth += (progress - smooth) * 0.1
+    const sway = Math.sin(t * 0.45) * 0.38
     const bob = (ph: number) => Math.sin(t * 0.8 + ph) * 0.05
-
-    center.rotation.y = sway + pointer.x * 0.35 + e1 * 0.9
+    // Şişeler her zaman yerinde: yalnızca hafif salınım, fare takibi ve kaydırmada küçük bir yükselme
+    center.rotation.y = sway + pointer.x * 0.35
     left.rotation.y = 0.35 + sway * 0.7 + pointer.x * 0.25
     right.rotation.y = -0.4 + sway * 0.7 + pointer.x * 0.25
-    center.position.set(0, -0.05 + bob(0) - e2 * 0.9, 0.4 - e2 * 3.2)
-    centerMat.opacity = 1 - e2 * 0.88
-    centerMat.transparent = centerMat.opacity < 0.999
-    left.position.set(-1.25 - e1 * 0.5 - e2 * 2.6, -0.22 + bob(1.2) + e2 * 0.3, -0.35 + e2 * 0.6)
-    right.position.set(1.3 + e1 * 0.5 + e2 * 2.6, -0.62 + bob(2.4) + e2 * 0.2, -0.1 + e2 * 0.6)
-    left.rotation.z = e2 * 0.22
-    right.rotation.z = -e2 * 0.22
+    center.position.set(0, -0.05 + bob(0), 0.4)
+    left.position.set(-1.25, -0.22 + bob(1.2), -0.35)
+    right.position.set(1.3, -0.62 + bob(2.4), -0.1)
+    rig.position.y = smooth * 0.8
     rig.rotation.x = pointer.y * 0.06
-
-    dna.rotation.y = t * 0.18 + e1 * 1.2 + e2 * 1.2
-    dna.position.z = -2.6 + e1 * 0.6 + e2 * 0.9
-    dna.scale.setScalar(1 + e2 * 0.3)
+    dna.rotation.y = t * 0.18
     dustPts.rotation.y = t * 0.015
     for (const b of bubbles) {
-      b.g.position.set((b.base.x + Math.sin(t * b.sp + b.ph) * 0.18) * spread, (b.base.y + Math.cos(t * b.sp * 0.8 + b.ph) * 0.22) * spread, b.base.z)
+      b.g.position.set(b.base.x + Math.sin(t * b.sp + b.ph) * 0.18, b.base.y + Math.cos(t * b.sp * 0.8 + b.ph) * 0.22 + smooth * 0.6, b.base.z)
       b.g.rotation.y = t * 0.2
     }
-    world.position.x = baseX * (1 - e1)
     glass.uniforms.uTime.value = t
     camera.position.x = pointer.x * 0.25
-    camera.position.z = baseZ - e1 * 1.4 + e2 * 0.6
-    camera.position.y = 0.15 + e1 * 0.2
-    camera.lookAt(0, e1 * 0.1, 0)
+    camera.position.z = baseZ
+    camera.lookAt(0, smooth * 0.4, 0)
     renderer.render(scene, camera)
   }
   tick()
@@ -309,7 +289,9 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
     setProgress: p => (progress = p),
     dispose: () => {
       cancelAnimationFrame(raf)
+      lost = true
       window.removeEventListener('pointermove', onPointer)
+      canvas.removeEventListener('webglcontextlost', onLost)
       ro.disconnect()
       io.disconnect()
       scene.traverse(o => {
@@ -319,7 +301,8 @@ export function createHero(canvas: HTMLCanvasElement, opts: HeroOptions): HeroHa
         if (Array.isArray(mat)) mat.forEach(x => x.dispose())
         else mat?.dispose()
       })
-      pmrem.dispose()
+      ;[tCenter, tLeft, tRight, dot].forEach(x => x.dispose())
+      env.dispose()
       renderer.dispose()
     },
   }

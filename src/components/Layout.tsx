@@ -13,7 +13,7 @@ let lenis: Lenis | null = null
 function useSmoothScroll() {
   useEffect(() => {
     if (reduced()) return
-    lenis = new Lenis({ lerp: 0.085 })
+    lenis = new Lenis({ lerp: 0.12 })
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (t: number) => lenis?.raf(t * 1000)
     gsap.ticker.add(raf)

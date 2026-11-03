@@ -17,25 +17,28 @@ const introSeen = () => {
   }
 }
 
-// 3D açılış: sahne ayrı bir parça olarak yüklenir, böylece ilk boyama beklemez.
-// Masaüstünde bölüm kaydırma boyunca sabitlenir: kamera şişelere yaklaşır, ilk mesaj çekilir, ikincisi gelir.
+// 3D açılış: sahne ayrı bir parça olarak, dokularıyla birlikte yüklenir; hazır olunca yumuşakça belirir.
+// WebGL yoksa ya da tarayıcı bağlamı kapatırsa ürün fotoğrafı görünür.
 function Hero() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const section = useRef<HTMLElement>(null)
   const handle = useRef<HeroHandle | null>(null)
-  const [ready, setReady] = useState(false)
+  const [state, setState] = useState<'loading' | 'ready' | 'fallback'>('loading')
   const quote = useQuote()
   useEffect(() => {
     let alive = true
-    import('../three/hero').then(({ createHero }) => {
-      if (!alive || !canvas.current) return
-      try {
-        handle.current = createHero(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 })
-        setReady(true)
-      } catch {
-        // WebGL yoksa yedek görsel kalır
-      }
-    })
+    import('../three/hero')
+      .then(({ createHero }) => {
+        if (!alive || !canvas.current) return null
+        return createHero(canvas.current, { base: BASE, reduced: reduced(), mobile: window.innerWidth < 760 }, { onLost: () => alive && setState('fallback') })
+      })
+      .then(h => {
+        if (!h) return
+        if (!alive) return h.dispose()
+        handle.current = h
+        setState('ready')
+      })
+      .catch(() => alive && setState('fallback'))
     return () => {
       alive = false
       handle.current?.dispose()
@@ -45,36 +48,23 @@ function Hero() {
   useEffect(() => {
     const el = section.current
     if (!el) return
-    const desktop = window.innerWidth >= 900 && !reduced()
     const ctx = gsap.context(() => {
       if (!reduced())
         gsap
           .timeline({ delay: introSeen() ? 0.2 : 2.9 })
           .from('.hero-copy .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
           .from('.hero-copy .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: 'top top',
-          end: desktop ? '+=140%' : 'bottom top',
-          pin: desktop,
-          scrub: 0.8,
-          onUpdate: st => handle.current?.setProgress(st.progress),
-        },
+      gsap.to('.hero-copy', {
+        yPercent: -25,
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true, onUpdate: st => handle.current?.setProgress(st.progress) },
       })
-      tl.to('.hero-copy', { yPercent: -40, opacity: 0, ease: 'power2.in', duration: 0.4 }, 0)
-      tl.to('.hero-scroll', { opacity: 0, duration: 0.1 }, 0)
-      if (desktop) {
-        tl.fromTo('.hero-copy2', { opacity: 0 }, { opacity: 1, duration: 0.05 }, 0.52)
-        tl.fromTo('.hero-copy2 .w > span', { yPercent: 115 }, { yPercent: 0, stagger: 0.03, duration: 0.3, ease: 'power3.out' }, 0.55)
-        tl.fromTo('.hero-copy2 .fade', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.05, duration: 0.2 }, 0.7)
-        tl.to({}, { duration: 0.2 })
-      }
     }, el)
     return () => ctx.revert()
   }, [])
   return (
-    <section className={`hero ${ready ? 'ready' : ''}`} ref={section}>
+    <section className={`hero is-${state}`} ref={section}>
       <div className="hero-bg" aria-hidden />
       <img className="hero-fallback" src={img('all-tall')} alt="" aria-hidden />
       <canvas ref={canvas} className="hero-canvas" aria-label="Protocol Stria kabin ürünleri: Exotherm, Oxyfusion ve Lipotherm 3D" />
@@ -91,17 +81,6 @@ function Hero() {
               Merkeziniz için teklif alın
             </button>
           </div>
-        </div>
-        <div className="hero-copy2" aria-hidden>
-          <p className="eyebrow fade">Hibrit biyoteknolojik yaklaşım</p>
-          <p className="display xl">{splitWords('Exosome mesajı iletir, lipozom güvenle taşır.')}</p>
-          <ul className="hero-tags">
-            {['ProliCell®', 'Exosome', 'EGF', 'Lipozom'].map(t => (
-              <li key={t} className="fade">
-                {t}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
       <div className="hero-scroll" aria-hidden>
