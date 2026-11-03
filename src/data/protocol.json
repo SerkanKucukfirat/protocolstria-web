@@ -1,0 +1,92 @@
+{
+ "intro": {
+  "title": "Protocol Stria",
+  "sub": "Lipozom & Exosome Teknolojisi ve EGF Destekli Profesyonel Çatlak Bakım Protokolü",
+  "text": [
+   "Protocol Stria, çatlak görünümünün azaltılmasına yardımcı olmayı hedefleyen, cilt dokusunu çok yönlü olarak destekleyen profesyonel bir bakım protokolüdür. Kabin uygulamaları, vakum cihazı ile gerçekleştirilen kontrollü vakumlama aşamasıyla desteklenerek ciltte mikro dolaşımın uyarılmasına, dokunun canlanmasına ve aktif içeriklerin cilt tarafından daha etkili algılanmasına katkı sağlar.",
+   "Protokol; mikro dolaşımı desteklemeyi, cildi işleme hazırlamayı ve aktif içeriklerin cilt tarafından daha homojen şekilde iletilmesini hedefleyen ileri taşıyıcı sistemlerle geliştirilmiştir. Lipozom ve exosome teknolojisi sayesinde aktif içerikler cilt dokusuna dengeli şekilde taşınırken, cilt yenilenme sürecinin ve doku bütünlüğünün güçlendirilmesine katkı sağlanır. Vakum teknolojisi ile desteklenen uygulamalar, çatlak bölgelerinde doku uyarımını artırmaya yardımcı olurken, cildin elastikiyet kazanma sürecini destekler.",
+   "Uygulama, acısız ve ağrısız yapısı sayesinde konforlu bir bakım deneyimi sunar ve düzenli kullanımda cildin daha pürüzsüz ve canlı bir görünüm kazanmasına yardımcı olur. Düzenli uygulama ile Protocol Stria, çatlak görünümünün azalmasına, elastikiyet artışına ve ciltte daha sıkı bir görünüm oluşmasına destek olur. Protokolde kullanılan kabin ürünleri, aynı zamanda selülit görünümünün azaltılmasına yönelik bakım uygulamalarında da tercih edilerek, cilt dokusunun genel görünümünün iyileştirilmesine katkı sağlar."
+  ]
+ },
+ "cabin": {
+  "title": "Protocol Stria Uygulaması",
+  "sub": "Çatlak izleri ile mücadelede profesyonel bakım protokolü",
+  "steps": [
+   {
+    "n": 1,
+    "product": "oxyfusion",
+    "text": "Çatlak uygulaması yapılacak bölge OXYFUSION ürünü ile temizlenir."
+   },
+   {
+    "n": 2,
+    "product": "exotherm-kabin",
+    "text": "EXOTHERM ürününden bir miktar alınarak bölgeye sürülür ve 15 dak. bekletilir."
+   },
+   {
+    "n": 3,
+    "product": "lipotherm",
+    "text": "LIPOTHERM ürününden yeterli miktar alınır, bölgeye sürülür ve vakum etkisine sahip olan başlık, tüm çatlaklar üzerinde hareket ettirilerek uygulama yapılır. PROTOCOL STRIA cihazı ile standart başlık kullanılarak işlem gerçekleştirilir. Bölgenin kuruması durumunda sulandırılmış LIPOTHERM ile işleme devam edilir."
+   },
+   {
+    "n": 4,
+    "product": "lipotherm",
+    "text": "Bütün çatlaklar tarandıktan sonra bölgeye tekrar saf LIPOTHERM sürülür."
+   },
+   {
+    "n": 5,
+    "product": "oxyfusion",
+    "text": "İşlem sonunda bölgeye OXYFUSION sürülür ve streç film ile bölge sarılır ve ev devam ürünleri danışana verilir."
+   }
+  ],
+  "note": "Ayda bir kere uygulanması koşulu ile çatlakların durumuna bakılarak bir bölgeye max. 1-3 seans yapılabilir. Uygulama sonrası hafif morluk ve kızarıklık görülebilir; birkaç gün içinde kendiliğinden kaybolur."
+ },
+ "home": {
+  "title": "Ev Devam Ürünleri Kullanım Protokolü",
+  "day": {
+   "label": "Sabah (1-30 gün arası kullanımı)",
+   "steps": [
+    {
+     "n": 1,
+     "title": "Temizleme",
+     "product": "black-ritual-soap",
+     "text": "Protocol Stria BLACK RITUAL sabun ile uygulama yapılacak bölgeyi yıkayın. Ardından bölgeyi kurulayın."
+    },
+    {
+     "n": 2,
+     "title": "Serum Uygulaması",
+     "product": "exopca",
+     "text": "Kurulanan bölgeye EXOPCA serum uygulayın. 3-4 dak. bekletin."
+    },
+    {
+     "n": 3,
+     "title": "Onarıcı Bakım",
+     "product": "vitaegf",
+     "text": "EXOPCA cilt tarafından emildikten sonra aynı bölgeye VITAEGF uygulayın. 3-4 dak. bekletin."
+    }
+   ]
+  },
+  "night": {
+   "label": "Akşam (1-30 gün arası kullanımı)",
+   "steps": [
+    {
+     "n": 1,
+     "title": "Temizleme",
+     "product": "black-ritual-soap",
+     "text": "Protocol Stria BLACK RITUAL sabun ile uygulama yapılacak bölgeyi yıkayın. Ardından bölgeyi kurulayın."
+    },
+    {
+     "n": 2,
+     "title": "Isı Etkili Bakım",
+     "product": "exotherm",
+     "text": "Çatlakların üzerine bir eldiven yardımı ile EXOTHERM ürününü uygulayın. 10 dak. bekletin."
+    },
+    {
+     "n": 3,
+     "title": "Onarıcı Bakım",
+     "product": "exopca",
+     "text": "10 dakikanın sonunda cilde EXOPCA ürününü sürün. 3-4 dak. bekletin."
+    }
+   ]
+  }
+ }
+}

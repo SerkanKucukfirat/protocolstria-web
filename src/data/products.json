@@ -1,0 +1,266 @@
+[
+ {
+  "slug": "oxyfusion",
+  "name": "OXYFUSION",
+  "sub": "Oxygen Therapy Solution",
+  "line": "kabin",
+  "step": "Cilt hazırlığı",
+  "desc": [
+   "OXYFUSION, cildin oksijenlenmesini destekleyen, dolaşımı canlandırmaya yardımcı olan ve kabin uygulamaları sırasında cildi işleme hazırlayan profesyonel bir bakım ürünüdür. Exosome ve lipozom teknolojileriyle desteklenen formülü sayesinde bakım protokollerinin cilt üzerindeki etkisini güçlendirmeyi hedefler.",
+   "Ciltte oluşturduğu ferah ve enerjik his, uygulama sırasında bölgesel canlanma etkisi yaratırken cildin daha taze, daha canlı ve daha dengeli bir görünüm kazanmasına yardımcı olur. Exosome ve lipozom taşıyıcı sistemlerin sağladığı gelişmiş yapı, bakım sürecinde cildin aktif bakıma daha açık hâle gelmesini destekler. Bitkisel ve deniz kökenli içeriklerden ilham alan dengeli formülü, cilt yüzeyinde konforlu bir bakım deneyimi sunar. Uygulama sonrası ciltte yumuşaklık, rahatlama ve tazelenmiş bir his bırakır. Özellikle çatlak (stria) ve vücut bakım protokollerinde, kabin uygulamalarının etkinliğini artırmaya yardımcı destekleyici bir adım olarak tercih edilir."
+  ],
+  "actives": [
+   [
+    "Hidrojen Peroksit",
+    "Cilt yüzeyinde kontrollü oksijenlenme sağlayarak daha canlı ve enerjik bir görünümü destekler."
+   ],
+   [
+    "Kafein",
+    "Mikro dolaşımı destekler, şişkinlik ve ödem görünümünün azalmasına yardımcı olur."
+   ],
+   [
+    "Gliserin",
+    "Cildi nemlendirir, yumuşatır ve uygulama boyunca konfor sağlar."
+   ],
+   [
+    "Hydroxyacetophenone (Hidroksi Asetofenon)",
+    "Güçlü antioksidan yapısıyla cildi çevresel stres faktörlerine karşı korumaya ve hassasiyet görünümünü azaltmaya yardımcı olur. Formülün stabilitesini destekleyerek daha nazik, güvenli ve yüksek toleranslı bir cilt bakımı sunar."
+   ],
+   [
+    "Hidrolize Kırmızı Yosun Ekstraktı (Hydrolyzed Rhodophyceae Extract)",
+    "Cilt bariyerini destekler, elastikiyet ve toparlanma görünümüne katkı sağlar."
+   ]
+  ]
+ },
+ {
+  "slug": "exotherm-kabin",
+  "name": "EXOTHERM",
+  "sub": "Body Heat Activation Cream",
+  "line": "kabin",
+  "step": "Isı aktivasyonu",
+  "desc": [
+   "EXOTHERM, ciltte kontrollü ve konforlu bir ısı hissi oluşturarak bakım sürecini destekleyen profesyonel bir kabin ürünüdür. Bitkisel içerikli nemlendirici ve yatıştırıcı bileşenler ile deniz kökenli ekstraktların, exosome ve lipozom teknolojileriyle desteklenen formülü sayesinde cildin nem dengesini korumaya yardımcı olur; daha canlı, aydınlık ve sağlıklı bir görünüm kazanmasını destekler.",
+   "Bakım sırasında oluşan hafif ısı etkisi, cildi canlandırırken uygulama deneyimini güçlendirir ve aktif bakım bileşenlerinin cilt tarafından daha etkin şekilde algılanmasına katkı sağlar. Uygulama süresince ciltte yumuşaklık, konfor ve rahatlama hissi oluşturur. Dengeli ve ciltle uyumlu yapısı sayesinde uygulama sonrası ciltte tazelenmiş, pürüzsüz ve bakımlı bir his bırakır. Profesyonel bakım protokollerinde, özellikle vücut ve çatlak bakım uygulamalarında destekleyici olarak tercih edilir."
+  ],
+  "actives": [
+   [
+    "Vanillyl Butyl Ether (VBE)",
+    "Ciltte kontrollü ısı etkisi oluşturarak mikro dolaşımı destekler. Aktif maddelerin penetrasyonunu artırmaya yardımcı olur ve cilde hafif bir ısınma hissi kazandırır."
+   ],
+   [
+    "Kafein",
+    "Dolaşımı destekler, şişkinlik görünümünün azalmasına yardımcı olur. Cildin daha canlı ve enerjik görünmesini destekler."
+   ],
+   [
+    "Hidrolize Kırmızı Yosun Ekstraktı (Hydrolyzed Rhodophyceae Extract)",
+    "Yoğun nem desteği sağlar. Cilt bariyerini güçlendirmeye, dolgunluk ve esneklik görünümünü desteklemeye yardımcı olur."
+   ],
+   [
+    "Gliserin",
+    "Güçlü bir nemlendiricidir. Cildi yumuşatır, elastikiyet kazandırır ve koruyucu bariyeri destekler."
+   ],
+   [
+    "Hydroxyacetophenone (Hidroksi Asetofenon)",
+    "Güçlü antioksidan yapısıyla cildi çevresel stres faktörlerine karşı korumaya ve hassasiyet görünümünü azaltmaya yardımcı olur. Formülün stabilitesini destekleyerek daha nazik, güvenli ve yüksek toleranslı bir cilt bakımı sunar."
+   ],
+   [
+    "Sodyum Fosfat",
+    "Cildin doğal pH dengesinin korunmasına yardımcı olarak formüldeki aktif içeriklerin ciltte uyum içinde çalışmasını destekler ve uygulama sonrası konfor sağlar."
+   ],
+   [
+    "Allantoin",
+    "Cildi yatıştırır, hassasiyet görünümünün azalmasına yardımcı olur. Cilt onarım sürecini destekler."
+   ],
+   [
+    "Kakao Ekstraktı (Theobroma Cacao Extract)",
+    "Antioksidan etkisiyle cildi çevresel faktörlere karşı korumaya yardımcı olur, cilde canlı ve sağlıklı bir görünüm kazandırır."
+   ]
+  ]
+ },
+ {
+  "slug": "lipotherm",
+  "name": "LIPOTHERM",
+  "sub": "Dermal Body Solution",
+  "line": "kabin",
+  "step": "Vakum uygulaması",
+  "desc": [
+   "LIPOTHERM, exosome ve lipozom teknolojileriyle desteklenen formülü sayesinde profesyonel bakım protokollerinde cildi işleme hazırlamaya yardımcı olan özel bir kabin ürünüdür. Kontrollü ısı hissi oluşturarak mikro dolaşımı destekler, cilt dokusunun yumuşamasına ve bakıma daha açık hâle gelmesine katkı sağlar. Bitkisel kökenli nemlendirici ve yatıştırıcı bileşenler ile deniz kökenli ekstraktların uyumlu yapısı, cildin nem dengesini korumaya yardımcı olurken daha canlı, pürüzsüz ve dengeli bir görünüm kazanmasını destekler.",
+   "Exosome ve lipozom teknolojilerinin sağladığı gelişmiş taşıyıcı sistem sayesinde bakım sürecinde cilt tarafından algılanan etkinlik artar, uygulama performansı desteklenir. Uygulama sırasında ciltte oluşan konforlu ısı hissi, bölgesel canlanma etkisi oluştururken bakım deneyimini güçlendirir. Cilt yüzeyinde yumuşaklık ve rahatlama hissi bırakır. Özellikle çatlak (stria) ve vücut bakım protokollerinde, dokunun esnekliğini ve bakım sonuçlarının etkinliğini desteklemek amacıyla tercih edilir."
+  ],
+  "actives": [
+   [
+    "Vanillyl Butyl Ether (VBE)",
+    "Ciltte kontrollü ısı etkisi oluşturarak mikro dolaşımı destekler. Dokunun işleme yanıtını artırmaya yardımcı olur."
+   ],
+   [
+    "Kafein",
+    "Mikro dolaşımı destekler. Selülit görünümünün azalmasına yardımcı olur ve cildin daha canlı bir görünüm kazanmasını destekler."
+   ],
+   [
+    "Gliserin",
+    "Cildi nemlendirir, yumuşatır ve uygulama süresince konfor sağlar."
+   ],
+   [
+    "Propanediol",
+    "Cildin nem dengesinin korunmasına yardımcı olurken onarıcı aktiflerin cilde temasını ve emilimini destekler, uygulama konforunu artırır."
+   ],
+   [
+    "Hidrolize Kırmızı Yosun Ekstraktı (Hydrolyzed Rhodophyceae Extract)",
+    "Cilt bariyerini destekler, elastikiyet ve dolgunluk görünümüne katkı sağlar. Çatlak görünümünün azalmasına yardımcı olur."
+   ],
+   [
+    "Sitrik Asit",
+    "Cilt yüzeyinde pH dengesinin desteklenmesine yardımcı olur. Cildin daha pürüzsüz ve homojen bir görünüm kazanmasına katkı sağlar, aktif içeriklerin cilt tarafından daha iyi algılanmasını destekler."
+   ]
+  ]
+ },
+ {
+  "slug": "black-ritual-soap",
+  "name": "BLACK RITUAL SOAP",
+  "sub": "Helps Fight Stretch Marks",
+  "line": "ev",
+  "routine": "Gündüz 1 · Gece 1",
+  "step": "Arındırma",
+  "desc": [
+   "Black Ritual Soap, cilt çatlaklarının görünümünü azaltmaya yönelik ev devam bakımı için özel olarak geliştirilmiştir. İçeriğindeki siyah kaolin kil ve mineral destekli aktifler sayesinde cildi kurutmadan derinlemesine arındırır, yenilenme sürecini destekler ve cilt bariyerinin güçlenmesine yardımcı olur.",
+   "Doğadan ilham alan formülü, dünyanın farklı bölgelerinden özenle seçilen bitkisel ve meyve özleriyle zenginleştirilmiştir. Amazon havzasının güçlü antioksidan potansiyeline sahip bitkileri ile Akdeniz’in besleyici yağları bir araya gelerek cildi derinlemesine besler, yumuşatır ve elastikiyetini destekler. Bu değerli özler, cildin doğal dengesini korumaya yardımcı olurken bakım sürecine duyusal bir konfor kazandırır. Düzenli kullanımda Exosome ve lipozom teknolojisi sayesinde profesyonel uygulamaların etkisini destekleyici ev bakım ürünü olarak ideal bir tamamlayıcıdır."
+  ],
+  "actives": [
+   [
+    "Siyah Kaolin Kili",
+    "Arındırıcı ve toksin giderici etkisiyle cildi temizler. Çatlak bölgelerde mikro dolaşımı destekleyerek yenileyici bakım sağlar."
+   ],
+   [
+    "Dolomit Kili (Kalsiyum & Magnezyum Minerali)",
+    "Cildi matlaştırır, fazla sebumu dengeler ve gözeneklerin sıkılaşmasına yardımcı olur. Mineral desteği sunar."
+   ],
+   [
+    "Activated Carbon (Aktif Kömür)",
+    "Ciltten toksinleri ve aşırı sebumu güçlü şekilde çeker. Gözenekleri temizler. Siyah noktaları arındırır."
+   ],
+   [
+    "Biberiye Çiçek Yağı",
+    "Mikro dolaşımı destekler, çatlak bakımında bölgenin oksijenlenmesine katkı sağlar."
+   ],
+   [
+    "Açai Meyvesi Yağı",
+    "Güçlü antioksidan kaynağıdır. Çatlak görünümüne neden olan serbest radikallere karşı cildi korur ve yumuşatır."
+   ],
+   [
+    "Üzüm Çekirdeği Yağı",
+    "Cildi sıkılaştırmaya yardımcı olur, çatlak görünümünde yapı güçlendirmeyi destekler."
+   ],
+   [
+    "Lavanta, Sardunya, Papatya ve Kişniş Yağı",
+    "Yatıştırıcı ve arındırıcı etkileriyle cildi dengeler. Hücre yenilenmesini destekler."
+   ]
+  ]
+ },
+ {
+  "slug": "exotherm",
+  "name": "EXOTHERM",
+  "sub": "Body Heat Activation Cream",
+  "line": "ev",
+  "routine": "Gece 2",
+  "step": "Isı aktivasyonu",
+  "desc": [
+   "PROTOCOL STRIA seansı sonrası kullanıma uygun olarak geliştirilen EXOTHERM, kontrollü ve güvenli bir ısı etkisiyle mikro dolaşımı aktive etmeyi hedefleyen özel bir ev devam bakım ürünüdür. Oluşturduğu ısınma etkisi sayesinde cilt dokusunun canlanmasına katkı sağlar ve aktif bileşenlerin cilt tarafından daha etkin şekilde emilimini destekler.",
+   "Mikro dolaşımın artmasına yardımcı olarak cildin daha pürüzsüz, sıkı ve canlı bir görünüm kazanmasına katkı sağlar. Düzenli kullanımda cilt elastikiyetini destekler ve dokunun daha dolgun, bakımlı görünüm kazanmasına yardımcı olur.",
+   "Profesyonel vücut bakım protokollerini tamamlamak üzere geliştirilen bu özel formül, exosome ve lipozom teknolojileriyle bakım sonuçlarının kalıcılığını destekler ve cildin güçlenmesine yardımcı olur. Evde düzenli kullanıma uygundur."
+  ],
+  "actives": [
+   [
+    "Vanillyl Butyl Ether (VBE)",
+    "Isı etkisi oluşturarak cildin mikro dolaşımını destekler. Aktif bileşenlerin penetrasyonunu artırmaya ve cilde daha canlı bir görünüm kazandırmaya yardımcı olur."
+   ],
+   [
+    "Kafein",
+    "Mikro dolaşımı destekler. Şişkinlik görünümünün azalmasına ve cildin daha sıkı bir görünüm kazanmasına katkı sağlar."
+   ],
+   [
+    "Hidrolize Kırmızı Yosun Ekstraktı (Hydrolyzed Rhodophyceae Extract)",
+    "Yoğun nem desteği sağlar, cilt bariyerini güçlendirmeye ve daha dolgun bir görünüm kazandırmaya yardımcı olur."
+   ],
+   [
+    "Allantoin",
+    "Hassasiyeti yatıştırmaya yardımcı olur. Cilt konforunu artırır ve onarım sürecine destek sağlar."
+   ],
+   [
+    "Kakao Ekstraktı (Theobroma Cacao Extract)",
+    "Antioksidan etkisiyle cildi serbest radikallere karşı korur. Daha aydınlık ve enerjik bir görünüm kazanılmasına yardımcı olur."
+   ]
+  ]
+ },
+ {
+  "slug": "vitaegf",
+  "name": "VITAEGF",
+  "sub": "Dermal Antioxidant Serum",
+  "line": "ev",
+  "routine": "Gündüz 3",
+  "step": "Onarım",
+  "desc": [
+   "Gelişmiş bakım formülü, ProliCell® Teknolojisi ile Centella Asiatica’dan ve Ayva Çekirdeğinden elde edilen bitki kaynaklı Exosome içeriği sayesinde cildin yenilenme ve onarım süreçlerini desteklemeye yardımcı olur. Hücresel iletişimi destekleyen bu ileri teknoloji yaklaşım, cilt dokusunun güçlenmesine ve daha dengeli bir yapı kazanmasına katkı sağlar.",
+   "Formülde yer alan EGF desteği, cilt dokusunun yeniden yapılanma sürecini desteklerken, lipozomal taşıyıcı sistemle sunulan vitamin kompleksleri aktif bileşenlerin cilt tarafından daha etkin şekilde algılanmasına yardımcı olur. Hyaluronik asit ile zenginleştirilen yapı, cilde yoğun nem kazandırarak dolgunluk ve elastikiyet görünümünü destekler. Düzenli kullanımda cilt bariyerinin güçlenmesine yardımcı olurken, çatlak görünümünün daha pürüzsüz ve sağlıklı bir görünüm kazanmasına katkı sağlar."
+  ],
+  "actives": [
+   [
+    "ProliCell® Centella Exosome",
+    "Yoğun doku yenilenmesini destekler. Güçlü antioksidan etkisi sayesinde dermiste oluşan hasarı azaltır, çatlak bölgelerinde kolajen onarım sürecini hızlandırarak cildin kendini yenilemesine yardımcı olur."
+   ],
+   [
+    "Ayva Çekirdeği kaynaklı Exosome",
+    "Kolajen ve elastin sentezini artırarak cilt dayanıklılığını güçlendirir. Hücresel iletişimi destekler, çatlak izlerinde belirgin yeniden yapılanma ve toparlanma sağlar."
+   ],
+   [
+    "SH-Oligopeptide-1 (EGF)",
+    "Hücre yenilenmesini hızlandırır. Çatlak dokusunda yeni doku oluşumunu destekleyerek cildin onarım sürecini aktive eder ve toparlayıcı etki sağlar."
+   ],
+   [
+    "Lipozomal Vitamin A & Vitamin E Kompleksi",
+    "Birlikte çalışarak güçlü antioksidan koruma sunar. Cildi serbest radikallere karşı korur, yenileyici etki sağlayarak doku kalitesinin artmasına katkıda bulunur."
+   ],
+   [
+    "Lipozomal %5 Hyaluronik Asit",
+    "Çatlak dokusunu içten derinlemesine nemlendirir. Cilde dolgunluk kazandırır, pürüzsüz ve daha sağlıklı bir görünüm oluşmasına yardımcı olur."
+   ],
+   [
+    "Hidrolize Elastin",
+    "Cildin elastikiyetini artırır. Çatlak kaynaklı gevşek görünümün toparlanmasına yardımcı olarak daha sıkı ve esnek bir cilt yapısı sağlar."
+   ]
+  ]
+ },
+ {
+  "slug": "exopca",
+  "name": "EXOPCA",
+  "sub": "Dermal Recovery Body Gel",
+  "line": "ev",
+  "routine": "Gündüz 2 · Gece 3",
+  "step": "Toparlanma",
+  "desc": [
+   "Gelişmiş bakım formülü, Physiogenyl® Mineral PCA Kompleksi ile cildin doğal metabolik dengesini desteklemeye yardımcı olur. Hücresel enerji mekanizmalarını hedef alan bu fizyolojik mineral kompleks, cilt dokusunun dayanıklılığını artırmaya ve yenilenme sürecini desteklemeye katkı sağlar. Düzenli kullanımda elastikiyet kaybının azaltılmasına ve cildin daha güçlü bir yapı kazanmasına yardımcı olur.",
+   "Formülde yer alan Centella Asiatica’dan elde edilen ProliCell® Exosome teknolojisi, hücresel iletişimi destekleyerek çatlak bölgelerinde doku kalitesinin iyileştirilmesine katkı sağlar. Lipozomal taşıyıcı sistem sayesinde aktif bileşenlerin cilt tarafından daha etkin algılanmasına yardımcı olan bu bütüncül yapı, cildin daha pürüzsüz, sıkı ve sağlıklı bir görünüm kazanmasını destekler."
+  ],
+  "actives": [
+   [
+    "Physiogenyl™ (Mineral PCA Kompleksi)",
+    "Cilt metabolizmasını uyarır, hücre enerji üretimini artırarak yenilenme hızını yükseltir. Magnezyum ve çinko içeriği ile onarım mekanizmasını destekler, çatlak bölgesinde canlılık ve esneklik kazandırır."
+   ],
+   [
+    "ProliCell® Centella Exosome",
+    "Yara iyileştirici etkisiyle dermal fibroblastları aktive eder. Çatlak bölgesinde elastikiyet artışı sağlar, kızarıklık, hassasiyet ve tahriş görünümünü azaltmaya yardımcı olur."
+   ],
+   [
+    "Lipozomal %5 Hyaluronik Asit",
+    "Derinin alt tabakalarına kadar nem taşır. Cildi dolgunlaştırarak çatlak izlerinin görünümünü azaltır, elastikiyet ve sıkılaşma sağlar."
+   ],
+   [
+    "Panthenol",
+    "Cilt bariyerini onarır. Yumuşaklık ve rahatlatıcı etki sunar, cildin elastikiyetini artırarak onarım sürecini destekler."
+   ],
+   [
+    "Allantoin",
+    "Cildi yatıştırır ve hücre yenilenmesine destekler. Pürüzlü görünümün azalmasına yardımcı olur."
+   ]
+  ]
+ }
+]

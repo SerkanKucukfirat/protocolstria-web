@@ -1,0 +1,21 @@
+{
+ "title": "Kabin Ürünleri ile G5 Destekli Profesyonel Selülit Bakımı",
+ "text": [
+  "Protocol Stria kabin ürünleri, G5 uygulamaları ile birlikte selülit görünümünün azaltılmasına yönelik profesyonel vücut bakımlarında kullanılmak üzere geliştirilmiştir.",
+  "G5 teknolojisi, mekanik masaj etkisiyle cilt dokusunu uyarırken; Protocol Stria’nın yüksek performanslı kabin ürünleri uygulamayı destekleyici bir bakım yaklaşımı sunar."
+ ],
+ "table": [
+  {
+   "n": 1,
+   "product": "exotherm-kabin",
+   "how": "Uygulama yapılacak bölgeye eşit bir tabaka halinde ürün sürülür. Cilt üzerinde 10 dk. bekletilir.",
+   "goal": "Kan dolaşımını artırmaya ve cildi aktif işleme hazırlamaya yardımcı olur."
+  },
+  {
+   "n": 2,
+   "product": "lipotherm",
+   "how": "1:1 oranında sulandırılmış LIPOTHERM cilde uygulanır. Ardından G5 cihazı ile bölgesel ve kontrollü selülit bakım işlemi yapılır.",
+   "goal": "Mekanik masaj etkisiyle selülit görünümünün azalmasını destekler."
+  }
+ ]
+}
