@@ -979,7 +979,7 @@ a:hover > .arrow,
   position: absolute;
   inset: auto 0 15% 0;
   margin: 0 auto;
-  height: 66%;
+  height: calc(66% * var(--ps, 1));
   width: auto;
   max-width: 86%;
   object-fit: contain;
@@ -1266,7 +1266,7 @@ a:hover > .arrow,
   position: absolute;
   inset: auto 0 14% 0;
   margin: 0 auto;
-  height: 68%;
+  height: calc(68% * var(--ps, 1));
   width: auto;
   max-width: 86%;
   object-fit: contain;
@@ -1535,10 +1535,13 @@ a:hover > .arrow,
   line-height: 1;
 }
 .pstep img {
+  box-sizing: border-box;
   height: 150px;
+  padding-top: calc(150px * (1 - var(--ps, 1)));
   width: auto;
   margin: 22px auto 22px;
   object-fit: contain;
+  object-position: 50% 100%;
   filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.6));
 }
 .pstep p {
@@ -1616,9 +1619,12 @@ a:hover > .arrow,
   border-color: var(--line-l);
 }
 .dn-step img {
+  box-sizing: border-box;
   height: 86px;
+  padding-top: calc(86px * (1 - var(--ps, 1)));
   width: 70px;
   object-fit: contain;
+  object-position: 50% 100%;
   transition: transform 0.6s var(--ease);
 }
 .dn-step:hover img {
@@ -1730,7 +1736,7 @@ a:hover > .arrow,
   position: absolute;
   inset: auto 0 12% 0;
   margin: 0 auto;
-  height: 74%;
+  height: calc(74% * var(--ps, 1));
   width: auto;
   max-width: 88%;
   object-fit: contain;
@@ -1886,9 +1892,12 @@ a:hover > .arrow,
   gap: 18px;
 }
 .g5-prod img {
+  box-sizing: border-box;
   height: 90px;
+  padding-top: calc(90px * (1 - var(--ps, 1)));
   width: 50px;
   object-fit: contain;
+  object-position: 50% 100%;
 }
 .g5-prod b {
   font-weight: 500;
@@ -2541,6 +2550,7 @@ html:not(.has-cursor) .cursor-ring {
   }
   .pstep img {
     height: 120px;
+    padding-top: calc(120px * (1 - var(--ps, 1)));
   }
   .ftr-top {
     grid-template-columns: 1fr 1fr !important;
@@ -2587,4 +2597,18 @@ html:not(.has-cursor) .cursor-ring {
   .ftr-word {
     margin-top: 50px;
   }
+}
+
+/* ---------- real-life proportions between products ----------
+   500 ml bottles (Oxyfusion, Exotherm kabin) are the reference; everything else is scaled to them */
+img[src*='/p-lipotherm'] {
+  --ps: 0.6;
+}
+img[src*='/p-exopca'],
+img[src*='/p-exotherm.webp'],
+img[src*='/p-vitaegf'] {
+  --ps: 0.84;
+}
+img[src*='/p-black-ritual-soap'] {
+  --ps: 0.42;
 }
