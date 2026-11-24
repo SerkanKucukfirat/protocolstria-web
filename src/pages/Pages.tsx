@@ -1,4 +1,4 @@
-import { useEffect, useRef, type JSX } from 'react'
+import { useEffect, useRef, useState, type JSX } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { CONTACT, about, g5, img, policies, productImg, protocol, tech } from '../data'
 import { capsBrand, useIntro, useReveal } from '../components/motion'
@@ -83,6 +83,37 @@ export function Technology() {
   )
 }
 
+// Training videos (shared Google Drive folder). They play on the page; a link opens them on Drive.
+const TRAINING_VIDEOS = [
+  { id: '1R-nFnTI-DKd19BBeqjQZtHMDn1Fn4sk3', title: 'Çatlak uygulaması', text: 'Protocol Stria kabin uygulamasının adım adım anlatımı.', poster: 'video-stria' },
+  { id: '1nUsej6U-GT-F8slK2VhasilCP2b_VJe1', title: 'G5 uygulaması', text: 'Kabin ürünleri ile G5 destekli selülit bakımı uygulaması.', poster: 'video-g5' },
+]
+
+function TrainingVideo({ id, title, text, poster }: { id: string; title: string; text: string; poster: string }) {
+  const [play, setPlay] = useState(false)
+  return (
+    <article className="video-card">
+      <div className="video-frame">
+        {play ? (
+          <iframe src={`https://drive.google.com/file/d/${id}/preview`} title={title} allow="autoplay; fullscreen" allowFullScreen />
+        ) : (
+          <button type="button" className="video-poster" onClick={() => setPlay(true)} aria-label={`${title} videosunu oynat`}>
+            <img src={img(poster)} alt="" loading="lazy" />
+            <span className="video-play" aria-hidden>
+              <i />
+            </span>
+          </button>
+        )}
+      </div>
+      <h3>{title}</h3>
+      <p>{text}</p>
+      <a className="link" href={`https://drive.google.com/file/d/${id}/view`} target="_blank" rel="noreferrer">
+        Drive'da aç <Arrow />
+      </a>
+    </article>
+  )
+}
+
 export function Application() {
   const page = usePage('Uygulama')
   const quote = useQuote()
@@ -101,6 +132,19 @@ export function Application() {
               <p key={t.slice(0, 20)} className="rv">
                 {t}
               </p>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section" id="videolar">
+        <div className="wrap">
+          <div className="sec-head">
+            <p className="eyebrow rv">Eğitim videoları</p>
+            <h2 className="display l rv">Uygulamayı izleyerek öğrenin</h2>
+          </div>
+          <div className="video-grid rv-stagger">
+            {TRAINING_VIDEOS.map(v => (
+              <TrainingVideo key={v.id} {...v} />
             ))}
           </div>
         </div>
