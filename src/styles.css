@@ -370,6 +370,41 @@ a:hover > .arrow,
 .hdr-nav > a.active::after {
   transform: scaleX(1);
 }
+/* Heocademy: a mint pill in the menu, as on the Slimwell site */
+.hdr-nav > a.hdr-academy {
+  opacity: 1;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(159, 216, 189, 0.45);
+  background: rgba(159, 216, 189, 0.08);
+  color: var(--mint2);
+  transition: background 0.3s, border-color 0.3s;
+}
+.hdr-nav > a.hdr-academy::after {
+  display: none;
+}
+.hdr-nav > a.hdr-academy:hover {
+  background: rgba(159, 216, 189, 0.18);
+  border-color: var(--mint);
+}
+.hdr-academy-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 10px var(--mint);
+  animation: academy-pulse 2.4s ease-in-out infinite;
+}
+@keyframes academy-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hdr-academy-dot {
+    animation: none;
+  }
+}
 .chev {
   width: 7px;
   height: 7px;
@@ -2014,7 +2049,7 @@ a:hover > .arrow,
 /* ---------- responsive ---------- */
 @media (max-width: 1100px) {
   .hdr-nav {
-    gap: 24px;
+    gap: 20px;
   }
   .pgrid {
     grid-template-columns: repeat(2, 1fr);
@@ -2029,7 +2064,8 @@ a:hover > .arrow,
     grid-template-columns: 1fr 1fr;
   }
 }
-@media (max-width: 900px) {
+/* the full menu (with the Heocademy pill) needs ~1080px; below that the burger menu takes over */
+@media (max-width: 1080px) {
   .hdr-nav,
   .hdr-cta {
     display: none;
@@ -2037,6 +2073,8 @@ a:hover > .arrow,
   .burger {
     display: block;
   }
+}
+@media (max-width: 900px) {
   .hdr-in {
     height: 72px;
   }

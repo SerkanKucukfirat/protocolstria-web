@@ -8,6 +8,9 @@ import { reduced } from './motion'
 import { Arrow, Logo, RoundLogo } from './ui'
 import { Cursor, Grain, Preloader, useMagnetic } from './fx'
 
+// Heocademy eğitim platformu (Slimwell sitesindeki ile aynı adres)
+const HEOCADEMY_URL = 'https://slimwell.heocademy.com'
+
 let lenis: Lenis | null = null
 
 function useSmoothScroll() {
@@ -96,6 +99,10 @@ function Header({ onQuote }: { onQuote: () => void }) {
           <NavLink to="/teknoloji">Teknoloji</NavLink>
           <NavLink to="/uygulama">Uygulama</NavLink>
           <NavLink to="/hakkimizda">Hakkımızda</NavLink>
+          <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer" className="hdr-academy">
+            <span className="hdr-academy-dot" aria-hidden />
+            Heocademy
+          </a>
           <NavLink to="/iletisim">İletişim</NavLink>
         </nav>
         <button type="button" className="btn btn-sm hdr-cta" onClick={onQuote}>
@@ -115,6 +122,9 @@ function Header({ onQuote }: { onQuote: () => void }) {
           <Link to="/teknoloji">Teknoloji</Link>
           <Link to="/uygulama">Uygulama</Link>
           <Link to="/hakkimizda">Hakkımızda</Link>
+          <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer">
+            Heocademy
+          </a>
           <Link to="/iletisim">İletişim</Link>
           <button type="button" className="btn" onClick={onQuote}>
             Merkeziniz için teklif alın <Arrow />
@@ -149,6 +159,9 @@ function Footer({ onQuote }: { onQuote: () => void }) {
           <Link to="/teknoloji">Teknoloji</Link>
           <Link to="/uygulama">Uygulama</Link>
           <Link to="/hakkimizda">Hakkımızda</Link>
+          <a href={HEOCADEMY_URL} target="_blank" rel="noreferrer">
+            Heocademy
+          </a>
           <Link to="/politikalar">Politikalarımız</Link>
         </div>
         <div>
