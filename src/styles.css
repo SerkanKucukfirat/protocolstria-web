@@ -1053,7 +1053,7 @@ a:hover > .arrow,
   margin-top: 40px;
   border-radius: var(--r);
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
 }
 .steps-img img {
   width: 100%;

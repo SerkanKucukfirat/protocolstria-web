@@ -324,7 +324,7 @@ function Steps() {
           <h2 className="display l rv">Kabinde başlar, evde devam eder</h2>
           <p className="lead rv">{protocol.intro.text[0]}</p>
           <div className="steps-img rv-img">
-            <img src={img('kabin-tall2')} alt="Protocol Stria kabin ürünleri ve vakum cihazı" loading="lazy" />
+            <img src={img('steps-set')} alt="Protocol Stria vakum cihazı ve ürün seti" loading="lazy" />
           </div>
         </div>
         <div className="steps-list" ref={ref}>
