@@ -15,6 +15,16 @@ function usePage(title: string) {
   return page
 }
 
+// logo files for the ProliCell badges (public/img/badges)
+const BADGE_LOGO: Record<string, string> = {
+  'ACTV Biotech': 'actv',
+  'Magic Effect with Small RNAs': 'small-rnas',
+  'Dermatologically Tested': 'derm',
+  'Patent Pending': 'patent',
+  'Sustainable Materials': 'sustainable',
+  'COSMOS Approved': 'cosmos',
+}
+
 export function Technology() {
   const page = usePage('Teknoloji')
   const quote = useQuote()
@@ -26,11 +36,13 @@ export function Technology() {
           <div>
             <p className="eyebrow rv">{capsBrand(tech.prolicell.sub)}</p>
             <h2 className="display l rv">{tech.prolicell.title}</h2>
-            <div className="badges rv-stagger">
+            <ul className="badge-logos rv-stagger" aria-label="Sertifikalar ve teknoloji ortakları">
               {tech.prolicell.badges.map(b => (
-                <span key={b}>{b}</span>
+                <li key={b} title={b}>
+                  <img src={img(`badges/${BADGE_LOGO[b]}`)} alt={b} loading="lazy" />
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
           <div>
             {tech.prolicell.text.map(t => (
@@ -45,7 +57,10 @@ export function Technology() {
         <div className="phero-tree" aria-hidden />
         <div className="wrap">
           <div className="sec-head">
-            <p className="eyebrow rv">{capsBrand(tech.hybrid.sub)}</p>
+            <p className="eyebrow rv hyb-eyebrow">
+              <img className="exo-mark" src={img('badges/exosome')} alt="Exosome" loading="lazy" />
+              {capsBrand(tech.hybrid.sub)}
+            </p>
             <h2 className="display l rv">Exosome mesajı iletir, lipozom güvenle taşır</h2>
           </div>
           <div className="hyb-grid rv-stagger">
