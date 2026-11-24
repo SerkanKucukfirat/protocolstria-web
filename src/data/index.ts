@@ -30,7 +30,7 @@ export const policies = policiesJson as { title: string; blocks: { h?: string; p
 const BASE = import.meta.env.BASE_URL
 export const img = (name: string) => `${BASE}img/${name}.webp`
 // bump when product photos are replaced, so browsers drop their cached copies
-const PRODUCT_IMG_VERSION = '2'
+const PRODUCT_IMG_VERSION = '3'
 export const productImg = (slug: string) => `${img(`p-${slug}`)}?v=${PRODUCT_IMG_VERSION}`
 export const bySlug = (slug?: string) => products.find(p => p.slug === slug)
 export const lineProducts = (line: Line) => products.filter(p => p.line === line)
