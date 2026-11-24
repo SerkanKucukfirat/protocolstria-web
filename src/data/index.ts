@@ -43,7 +43,7 @@ export const lines: Record<Line, { slug: string; title: string; short: string; l
     lead: 'Uzman uygulamalar için geliştirilen Protocol Stria bakım serisi.',
     text: 'Protocol Stria kabin ürünleri, profesyonel uygulama protokolünü desteklemek üzere geliştirilmiş ileri teknoloji formüller içerir. Ürünler, Kore kozmetik üretim teknolojileri kullanılarak üretilmekte olup profesyonel uygulama süreçleri ile uyumlu şekilde geliştirilmiştir.',
     banner: 'kabin-banner',
-    tall: 'kabin-tall',
+    tall: 'kabin-tall-v2',
   },
   ev: {
     slug: 'ev-devam-urunleri',
