@@ -150,7 +150,7 @@ function Statement() {
       <div className="wrap">
         <p className="eyebrow rv">Protocol STRIA bakım yaklaşımı</p>
         <p className="display l statement-text rv">
-          Stria bakımı, yalnızca yüzeysel bir iyileştirme değil; <em>cildin hafızasına dokunan</em> derin bir onarım sürecidir.
+          Protocol Stria bakımı, yalnızca yüzeysel bir iyileştirme değil; <em>cildin hafızasına dokunan</em> derin bir onarım sürecidir.
         </p>
         <div className="statement-grid">
           <p className="lead rv">

@@ -64,6 +64,7 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
 // Statik başlıkların metnini çalışma anında kelime maskelerine böler (bir kez). <em> gibi öğeler kelime kelime bölünür.
 export function splitDom(el: HTMLElement) {
   if (el.dataset.split) return true
+  const caps = getComputedStyle(el).textTransform === 'uppercase'
   const wrapText = (text: string, into: Node) => {
     text.split(/(\s+)/).forEach(part => {
       if (!part) return
@@ -72,7 +73,7 @@ export function splitDom(el: HTMLElement) {
         const w = document.createElement('span')
         w.className = 'w'
         const i = document.createElement('span')
-        i.textContent = capsBrand(part)
+        i.textContent = caps ? capsBrand(part) : part
         w.appendChild(i)
         into.appendChild(w)
       }
