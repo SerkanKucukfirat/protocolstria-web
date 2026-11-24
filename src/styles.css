@@ -1361,7 +1361,19 @@ a:hover > .arrow,
   margin-top: 28px;
   color: rgba(255, 255, 255, 0.8);
 }
+.phero-visual {
+  position: relative;
+}
+.phero-tree.on-img {
+  right: auto;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  max-width: none;
+  transform: translate(-50%, -50%);
+}
 .phero-img {
+  position: relative;
   border-radius: var(--r);
   overflow: hidden;
   aspect-ratio: 4 / 5;
@@ -2215,6 +2227,10 @@ a:hover > .arrow,
   }
   .phero-img {
     aspect-ratio: 4 / 3;
+  }
+  /* keep the whole ring on screen when the photo spans the width */
+  .phero-tree.on-img {
+    width: min(150%, calc(100vw - 16px));
   }
 }
 @media (max-width: 600px) {

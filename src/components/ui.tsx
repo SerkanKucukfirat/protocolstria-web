@@ -85,7 +85,7 @@ export function Crumbs({ items }: { items: { to?: string; label: string }[] }) {
 export function PageHero({ eyebrow, title, text, crumbs, image, children }: { eyebrow: string; title: string; text?: string; crumbs: { to?: string; label: string }[]; image?: string; children?: ReactNode }) {
   return (
     <section className={`phero ${image ? 'has-img' : ''}`}>
-      <div className="phero-tree" aria-hidden />
+      {!image && <div className="phero-tree" aria-hidden />}
       <div className="wrap phero-in">
         <div className="phero-copy">
           <Crumbs items={crumbs} />
@@ -95,8 +95,12 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: { ey
           {children}
         </div>
         {image && (
-          <div className="phero-img intro-img">
-            <img src={image} alt="" />
+          // the tree circle is centred on the photo, so the two always line up
+          <div className="phero-visual">
+            <div className="phero-tree on-img" aria-hidden />
+            <div className="phero-img intro-img">
+              <img src={image} alt="" />
+            </div>
           </div>
         )}
       </div>
