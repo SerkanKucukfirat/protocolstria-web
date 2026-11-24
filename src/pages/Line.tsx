@@ -33,7 +33,7 @@ export default function LinePage({ line }: { line: Line }) {
       </section>
 
       <section className="wide-band">
-        <img src={img(line === 'kabin' ? 'kabin-banner2' : 'ev-banner2')} alt="" loading="lazy" data-parallax="6" />
+        <img src={img(line === 'kabin' ? 'kabin-banner2' : 'ev-banner2')} alt="" loading="lazy" />
       </section>
 
       {line === 'kabin' ? (

@@ -388,9 +388,9 @@ function Routine() {
 function G5() {
   return (
     <section className="g5 section">
-      <div className="g5-bg" data-parallax="8">
+      <div className="g5-bg">
         <picture>
-          <source media="(max-width: 900px)" srcSet={img('g5-tall')} />
+          <source media="(max-width: 600px)" srcSet={img('g5-tall')} />
           <img src={img('g5')} alt="" loading="lazy" />
         </picture>
       </div>

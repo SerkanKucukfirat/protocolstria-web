@@ -703,7 +703,8 @@ a:hover > .arrow,
   display: block;
   border-radius: var(--r);
   overflow: hidden;
-  min-height: clamp(520px, 62vw, 760px);
+  /* same shape as the photo, so the products in it are never cut */
+  aspect-ratio: 1400 / 1575;
   color: var(--white);
   isolation: isolate;
 }
@@ -716,10 +717,10 @@ a:hover > .arrow,
   object-fit: cover;
 }
 .line-img img {
-  transition: transform 1.6s var(--ease);
+  transition: filter 0.8s var(--ease);
 }
 .line-card:hover .line-img img {
-  transform: scale(1.06);
+  filter: brightness(1.08);
 }
 .line-card::after {
   content: '';
@@ -1299,33 +1300,46 @@ a:hover > .arrow,
 }
 
 /* ---------- G5 ---------- */
-.g5 {
+.g5.section {
+  /* the photo is shown whole (products are never cut): wide screens lay the text over it,
+     narrower ones put the text below it */
+  padding: 0;
   overflow: hidden;
   color: var(--white);
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
+  background: #000;
 }
 .g5-bg {
-  position: absolute;
-  inset: -10% 0;
+  position: relative;
 }
 .g5-bg picture,
 .g5-bg img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 .g5::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(4, 18, 11, 0.85) 0%, rgba(4, 18, 11, 0.4) 55%, rgba(4, 18, 11, 0) 100%);
+  pointer-events: none;
 }
 .g5-in {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1400px) {
+  .g5::after {
+    display: none;
+  }
+  .g5-in {
+    position: relative;
+    inset: auto;
+    padding-block: clamp(40px, 6vw, 70px) clamp(60px, 8vw, 100px);
+  }
 }
 .g5-card {
   max-width: 560px;
@@ -1457,15 +1471,17 @@ a:hover > .arrow,
 }
 .phero-img {
   position: relative;
-  border-radius: var(--r);
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  max-height: 70vh;
+  display: flex;
+  justify-content: center;
 }
+/* the photo keeps its own shape (nothing cropped); very tall photos stop at 78% of the screen height */
 .phero-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 78vh;
+  border-radius: var(--r);
 }
 .crumbs {
   display: flex;
@@ -1501,16 +1517,13 @@ a:hover > .arrow,
 
 /* ---------- line page parts ---------- */
 .wide-band {
-  height: clamp(320px, 50vw, 680px);
-  overflow: hidden;
   position: relative;
 }
+/* the whole banner is shown: products at the edges must never be cut */
 .wide-band img {
-  position: absolute;
-  inset: -8% 0;
+  display: block;
   width: 100%;
-  height: 116%;
-  object-fit: cover;
+  height: auto;
 }
 .pstep-grid {
   list-style: none;
@@ -1576,7 +1589,8 @@ a:hover > .arrow,
 .split-img {
   border-radius: var(--r);
   overflow: hidden;
-  aspect-ratio: 4 / 5;
+  /* the G5 photo is 2:3; the same shape keeps the products at its bottom edge whole */
+  aspect-ratio: 2 / 3;
 }
 .split-img img {
   width: 100%;
@@ -1653,9 +1667,8 @@ a:hover > .arrow,
 }
 .crossline-in img {
   border-radius: var(--r);
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
   width: 100%;
+  height: auto;
 }
 .crossline-in p:not(.eyebrow) {
   margin: 14px 0 30px;
@@ -2311,14 +2324,8 @@ a:hover > .arrow,
   .contact-grid {
     grid-template-columns: 1fr;
   }
-  .g5::after {
-    background: linear-gradient(0deg, rgba(4, 18, 11, 0.9) 0%, rgba(4, 18, 11, 0.5) 70%, rgba(4, 18, 11, 0.2) 100%);
-  }
-  .g5 {
-    align-items: flex-end;
-  }
-  .phero-img {
-    aspect-ratio: 4 / 3;
+  .phero-img img {
+    max-height: 70vh;
   }
   /* keep the whole ring on screen when the photo spans the width */
   .phero-tree.on-img {

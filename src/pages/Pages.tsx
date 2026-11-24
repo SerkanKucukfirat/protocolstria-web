@@ -194,7 +194,7 @@ export function About() {
         </div>
       </section>
       <section className="wide-band">
-        <img src={img('day-night')} alt="" loading="lazy" data-parallax="6" />
+        <img src={img('day-night')} alt="" loading="lazy" />
       </section>
     </div>
   )
