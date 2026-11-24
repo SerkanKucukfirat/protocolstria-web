@@ -178,8 +178,9 @@ p {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  /* the reveal mask must not cut Turkish marks: Ü/İ dots above, Ç/Ş cedillas and descenders below */
+  padding: 0.22em 0.04em 0.2em;
+  margin: -0.22em -0.04em -0.2em;
 }
 .w > span {
   display: inline-block;

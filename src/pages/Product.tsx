@@ -32,7 +32,7 @@ export default function ProductPage() {
     const ctx = gsap.context(() => {
       gsap
         .timeline({ delay: 0.15 })
-        .from('.prod-hero .w > span', { yPercent: 115, duration: 1.3, ease: 'expo.out', stagger: 0.06 })
+        .from('.prod-hero .w > span', { yPercent: 145, duration: 1.3, ease: 'expo.out', stagger: 0.06 })
         .from('.prod-hero .intro-up', { y: 24, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.08 }, 0.2)
         .from('.prod-shot img', { y: 120, rotate: -6, opacity: 0, duration: 1.8, ease: 'expo.out' }, 0)
       gsap.to('.prod-shot img', { y: -18, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.8 })

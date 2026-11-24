@@ -25,7 +25,7 @@ export function useReveal(scope: RefObject<HTMLElement | null>, deps: Dependency
         if (el.matches('h2.display, p.display.l') && splitDom(el)) {
           gsap.fromTo(
             el.querySelectorAll('.w > span'),
-            { yPercent: 115 },
+            { yPercent: 145 },
             { yPercent: 0, duration: 1.25, ease: 'expo.out', stagger: 0.045, scrollTrigger: { trigger: el, start: 'top 88%' } },
           )
           return
@@ -112,7 +112,7 @@ export function useIntro(scope: RefObject<HTMLElement | null>, deps: DependencyL
     if (!root || reduced()) return
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.25 })
-      tl.from('.intro-words .w > span', { yPercent: 110, duration: 1.3, ease: 'expo.out', stagger: 0.06 })
+      tl.from('.intro-words .w > span', { yPercent: 145, duration: 1.3, ease: 'expo.out', stagger: 0.06 })
         .from('.intro-up', { y: 24, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.08 }, 0.15)
         .fromTo('.intro-img', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut' }, 0)
         .from('.intro-img img', { scale: 1.25, duration: 2.4, ease: 'expo.out' }, 0.2)

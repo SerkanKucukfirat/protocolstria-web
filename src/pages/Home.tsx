@@ -100,7 +100,7 @@ function Hero() {
       if (!reduced())
         gsap
           .timeline({ delay: introSeen() ? 0.2 : 2.9 })
-          .from('.hero-copy .w > span', { yPercent: 115, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
+          .from('.hero-copy .w > span', { yPercent: 145, duration: 1.4, ease: 'expo.out', stagger: 0.07 })
           .from('.hero-copy .intro-up', { y: 26, opacity: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
       gsap.to('.hero-copy', {
         yPercent: -25,
