@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { g5, img, lineProducts, lines, productImg, protocol, type Line } from '../data'
-import { useIntro, useReveal } from '../components/motion'
+import { capsBrand, useIntro, useReveal } from '../components/motion'
 import { Arrow, CtaBand, PageHero, ProductCard } from '../components/ui'
 import { useQuote } from '../components/Layout'
 
@@ -41,7 +41,7 @@ export default function LinePage({ line }: { line: Line }) {
           <section className="section">
             <div className="wrap">
               <div className="sec-head">
-                <p className="eyebrow rv">Protocol Stria kabin uygulama protokolü</p>
+                <p className="eyebrow rv">Protocol STRIA kabin uygulama protokolü</p>
                 <h2 className="display l rv">{protocol.cabin.sub}</h2>
               </div>
               <ol className="pstep-grid rv-stagger">
@@ -80,7 +80,7 @@ export default function LinePage({ line }: { line: Line }) {
         <section className="section">
           <div className="wrap">
             <div className="sec-head">
-              <p className="eyebrow rv">{protocol.home.title}</p>
+              <p className="eyebrow rv">{capsBrand(protocol.home.title)}</p>
               <h2 className="display l rv">Sabah ve akşam rutini</h2>
             </div>
             <div className="dn-grid">

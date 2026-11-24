@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { Link, useParams } from 'react-router-dom'
 import { bySlug, lines, productImg, products, protocol } from '../data'
-import { reduced, splitWords, useReveal } from '../components/motion'
+import { capsBrand, reduced, splitWords, useReveal } from '../components/motion'
 import { Arrow, Crumbs, ProductCard, Tilt } from '../components/ui'
 import { useQuote } from '../components/Layout'
 import NotFound from './NotFound'
@@ -52,8 +52,8 @@ export default function ProductPage() {
             <p className="eyebrow intro-up">
               {L.short} · {p.step}
             </p>
-            <h1 className="display xl">{splitWords(p.name)}</h1>
-            <p className="prod-sub intro-up">{p.sub}</p>
+            <h1 className="display xl" lang="en">{splitWords(p.name)}</h1>
+            <p className="prod-sub intro-up" lang="en">{p.sub}</p>
             {p.routine && (
               <p className="routine-badges intro-up">
                 {p.routine.split(' · ').map(r => (
@@ -118,7 +118,7 @@ export default function ProductPage() {
             {p.actives.map(([name, text], i) => (
               <article key={name} className="act">
                 <em>{String(i + 1).padStart(2, '0')}</em>
-                <h3>{name}</h3>
+                <h3>{capsBrand(name)}</h3>
                 <p>{text}</p>
               </article>
             ))}
@@ -129,7 +129,7 @@ export default function ProductPage() {
       <section className="section">
         <div className="wrap">
           <div className="sec-head">
-            <p className="eyebrow rv">Protocol Stria bakım serisi</p>
+            <p className="eyebrow rv">Protocol STRIA bakım serisi</p>
             <h2 className="display l rv">Birlikte kullanılanlar</h2>
           </div>
           <div className="pgrid n3 rv-stagger">

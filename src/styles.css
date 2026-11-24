@@ -343,6 +343,11 @@ a:hover > .arrow,
 }
 .hdr-nav > a,
 .hdr-drop > button {
+  /* buttons do not inherit these from the menu by default */
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
   position: relative;
   padding: 8px 0;
   opacity: 0.62;

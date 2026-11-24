@@ -1,7 +1,7 @@
 import { useEffect, useRef, type JSX } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { CONTACT, about, g5, img, policies, productImg, protocol, tech } from '../data'
-import { useIntro, useReveal } from '../components/motion'
+import { capsBrand, useIntro, useReveal } from '../components/motion'
 import { Arrow, CtaBand, PageHero } from '../components/ui'
 import { useQuote } from '../components/Layout'
 
@@ -24,7 +24,7 @@ export function Technology() {
       <section className="section">
         <div className="wrap split">
           <div>
-            <p className="eyebrow rv">{tech.prolicell.sub}</p>
+            <p className="eyebrow rv">{capsBrand(tech.prolicell.sub)}</p>
             <h2 className="display l rv">{tech.prolicell.title}</h2>
             <div className="badges rv-stagger">
               {tech.prolicell.badges.map(b => (
@@ -45,7 +45,7 @@ export function Technology() {
         <div className="phero-tree" aria-hidden />
         <div className="wrap">
           <div className="sec-head">
-            <p className="eyebrow rv">{tech.hybrid.sub}</p>
+            <p className="eyebrow rv">{capsBrand(tech.hybrid.sub)}</p>
             <h2 className="display l rv">Exosome mesajı iletir, lipozom güvenle taşır</h2>
           </div>
           <div className="hyb-grid rv-stagger">
@@ -93,7 +93,7 @@ export function Application() {
       <section className="section tint">
         <div className="wrap">
           <div className="sec-head">
-            <p className="eyebrow rv">{protocol.cabin.title}</p>
+            <p className="eyebrow rv">{capsBrand(protocol.cabin.title)}</p>
             <h2 className="display l rv">{protocol.cabin.sub}</h2>
           </div>
           <ol className="pstep-grid rv-stagger">

@@ -72,7 +72,7 @@ export function splitDom(el: HTMLElement) {
         const w = document.createElement('span')
         w.className = 'w'
         const i = document.createElement('span')
-        i.textContent = part
+        i.textContent = capsBrand(part)
         w.appendChild(i)
         into.appendChild(w)
       }
@@ -95,9 +95,13 @@ export function splitDom(el: HTMLElement) {
   return true
 }
 
+// Brand names are Latin words: written in capitals here they stay STRIA / PROLICELL when a
+// Turkish (lang="tr") text-transform turns the rest into capitals, instead of becoming STRİA.
+export const capsBrand = (text = '') => text.replace(/\b(Stria|ProliCell)\b/g, m => m.toUpperCase())
+
 // Large headings come in line by line: each word rises from behind a mask.
 export function splitWords(text: string) {
-  return text.split(' ').flatMap((w, i) => [
+  return capsBrand(text).split(' ').flatMap((w, i) => [
     <span className="w" key={i}>
       <span>{w}</span>
     </span>,

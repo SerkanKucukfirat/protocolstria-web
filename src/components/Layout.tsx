@@ -88,8 +88,8 @@ function Header({ onQuote }: { onQuote: () => void }) {
                   </Link>
                   {lineProducts(l).map(p => (
                     <Link key={p.slug} to={`/urunler/${p.slug}`}>
-                      {p.name}
-                      <small>{p.sub}</small>
+                      <span lang="en">{p.name}</span>
+                      <small lang="en">{p.sub}</small>
                     </Link>
                   ))}
                 </div>
@@ -118,7 +118,7 @@ function Header({ onQuote }: { onQuote: () => void }) {
           <p className="eyebrow">Ürünler</p>
           <Link to={`/${lines.kabin.slug}`}>Kabin Ürünleri</Link>
           <Link to={`/${lines.ev.slug}`}>Ev Devam Ürünleri</Link>
-          <p className="eyebrow">Protocol Stria</p>
+          <p className="eyebrow">Protocol STRIA</p>
           <Link to="/teknoloji">Teknoloji</Link>
           <Link to="/uygulama">Uygulama</Link>
           <Link to="/hakkimizda">Hakkımızda</Link>
@@ -155,7 +155,7 @@ function Footer({ onQuote }: { onQuote: () => void }) {
           </a>
         </div>
         <div>
-          <p className="eyebrow">Protocol Stria</p>
+          <p className="eyebrow">Protocol STRIA</p>
           <Link to="/teknoloji">Teknoloji</Link>
           <Link to="/uygulama">Uygulama</Link>
           <Link to="/hakkimizda">Hakkımızda</Link>

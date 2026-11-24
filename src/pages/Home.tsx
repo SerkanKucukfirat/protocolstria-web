@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
 import { CONTACT, appSteps, g5, img, lineProducts, lines, productImg, products, protocol, techCards } from '../data'
-import { reduced, splitWords, useReveal } from '../components/motion'
+import { capsBrand, reduced, splitWords, useReveal } from '../components/motion'
 import { Arrow, CtaBand, Marquee, ProductCard, Tilt } from '../components/ui'
 import { useQuote } from '../components/Layout'
 import type { TreeHandle } from '../three/tree'
@@ -148,7 +148,7 @@ function Statement() {
   return (
     <section className="statement">
       <div className="wrap">
-        <p className="eyebrow rv">Protocol Stria bakım yaklaşımı</p>
+        <p className="eyebrow rv">Protocol STRIA bakım yaklaşımı</p>
         <p className="display l statement-text rv">
           Stria bakımı, yalnızca yüzeysel bir iyileştirme değil; <em>cildin hafızasına dokunan</em> derin bir onarım sürecidir.
         </p>
@@ -191,7 +191,7 @@ function Lines() {
               <p>{lines[l].lead}</p>
               <div className="line-pills">
                 {lineProducts(l).map(p => (
-                  <span key={p.slug}>{p.name}</span>
+                  <span key={p.slug} lang="en">{p.name}</span>
                 ))}
               </div>
               <span className="link">
@@ -230,7 +230,7 @@ function Technology() {
               <span key={i} className="vesicle" style={{ ['--i' as string]: i }} />
             ))}
           </div>
-          <p className="tech-caption">{['Bitki kök hücresi · ProliCell®', 'Hücreler arası iletişim · Exosome', 'Hücre zarına benzer taşıyıcı · Lipozom'][active]}</p>
+          <p className="tech-caption">{['Bitki kök hücresi · PROLICELL®', 'Hücreler arası iletişim · Exosome', 'Hücre zarına benzer taşıyıcı · Lipozom'][active]}</p>
         </div>
         <div className="tech-panels">
           <div className="sec-head">
@@ -241,7 +241,7 @@ function Technology() {
           {techCards.map((t, i) => (
             <article key={t.key} className={`tech-panel ${i === active ? 'on' : ''}`}>
               <em>0{i + 1}</em>
-              <h3>{t.title}</h3>
+              <h3>{capsBrand(t.title)}</h3>
               <p>{t.text}</p>
             </article>
           ))}
@@ -291,7 +291,7 @@ function Showcase() {
   return (
     <section className="showcase" ref={wrap}>
       <div className="showcase-head wrap">
-        <p className="eyebrow">Protocol Stria bakım serisi</p>
+        <p className="eyebrow">Protocol STRIA bakım serisi</p>
         <h2 className="display l">Yedi formül, tek protokol</h2>
       </div>
       <div className="showcase-track" ref={track}>
@@ -320,7 +320,7 @@ function Steps() {
     <section className="steps-sec section">
       <div className="wrap steps-grid">
         <div className="steps-sticky">
-          <p className="eyebrow rv">Protocol Stria uygulama aşamaları</p>
+          <p className="eyebrow rv">Protocol STRIA uygulama aşamaları</p>
           <h2 className="display l rv">Kabinde başlar, evde devam eder</h2>
           <p className="lead rv">{protocol.intro.text[0]}</p>
           <div className="steps-img rv-img">
@@ -335,7 +335,7 @@ function Steps() {
             <article key={s.title} className="step">
               <span className="step-n">{i + 1}</span>
               <div>
-                <h3>{s.title}</h3>
+                <h3>{capsBrand(s.title)}</h3>
                 <p>{s.text}</p>
               </div>
             </article>
@@ -375,7 +375,7 @@ function Routine() {
                 <img src={productImg(s.product)} alt="" loading="lazy" />
               </Tilt>
               <span className="rcard-n">{s.n}. adım</span>
-              <h3>{s.title}</h3>
+              <h3>{capsBrand(s.title)}</h3>
               <p>{s.text}</p>
             </Link>
           ))}
@@ -418,7 +418,7 @@ function Catalog() {
           <img src={`${BASE}img/catalog-set.webp`} alt="Protocol Stria vakum cihazı ve ürün seti" loading="lazy" />
         </div>
         <div className="rv">
-          <p className="eyebrow">Protocol Stria</p>
+          <p className="eyebrow">Protocol STRIA</p>
           <h2 className="display l">Profesyonel katalog</h2>
           <p className="lead">Protocol Stria ürün serisi ve profesyonel uygulama sistemi hakkında detaylı bilgi almak için kataloğumuzu inceleyebilirsiniz.</p>
           <a className="btn" href={CONTACT.catalog} target="_blank" rel="noreferrer">
@@ -459,7 +459,7 @@ export default function Home() {
       <CtaBand
         title={
           <>
-            Merkeziniz için Protocol Stria <em>hakkında bilgi</em> almak ister misiniz?
+            Merkeziniz için Protocol STRIA <em>hakkında bilgi</em> almak ister misiniz?
           </>
         }
         text="Protocol Stria profesyonel bakım sistemini merkezinizde uygulamak ve iş birliği süreçleri hakkında bilgi almak için bizimle iletişime geçebilirsiniz."

@@ -1,7 +1,7 @@
 import { useRef, type CSSProperties, type PointerEvent, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { productImg, type Product } from '../data'
-import { splitWords } from './motion'
+import { splitWords, capsBrand } from './motion'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -58,8 +58,8 @@ export function ProductCard({ p, index }: { p: Product; index?: number }) {
         {index !== undefined && <em>{String(index + 1).padStart(2, '0')}</em>}
         <span className="pcard-line">{p.line === 'kabin' ? 'Kabin' : 'Ev devam'}</span>
       </span>
-      <strong>{p.name}</strong>
-      <span className="pcard-sub">{p.sub}</span>
+      <strong lang="en">{p.name}</strong>
+      <span className="pcard-sub" lang="en">{p.sub}</span>
       <span className="pcard-go">
         İncele <Arrow />
       </span>
@@ -89,7 +89,7 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: { ey
       <div className="wrap phero-in">
         <div className="phero-copy">
           <Crumbs items={crumbs} />
-          <p className="eyebrow intro-up">{eyebrow}</p>
+          <p className="eyebrow intro-up">{capsBrand(eyebrow)}</p>
           <h1 className="display xl intro-words">{splitWords(title)}</h1>
           {text && <p className="lead intro-up">{text}</p>}
           {children}
@@ -130,7 +130,7 @@ export function CtaBand({ title, text, onClick, button }: { title: ReactNode; te
       <div className="ctaband-tree" aria-hidden />
       <div className="wrap ctaband-in rv">
         <div>
-          <h2 className="display l">{title}</h2>
+          <h2 className="display l">{typeof title === 'string' ? capsBrand(title) : title}</h2>
           {text && <p className="lead">{text}</p>}
         </div>
         <button type="button" className="btn btn-light" onClick={onClick}>
