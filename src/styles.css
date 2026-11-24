@@ -1445,7 +1445,8 @@ a:hover > .arrow,
   right: auto;
   left: 50%;
   top: 50%;
-  width: 150%;
+  /* only 36px past each side of the photo: the ring must stay clear of the text column (60px gap) */
+  width: calc(100% + 72px);
   max-width: none;
   transform: translate(-50%, -50%);
 }
