@@ -124,7 +124,7 @@ function Hero() {
       <div className="wrap hero-in">
         <div className="hero-copy">
           <p className="eyebrow intro-up">Kore formülasyonu · Profesyonel çatlak bakım protokolü</p>
-          <h1 className="display xxl">{splitWords('Cildin yeniden yazılan hikayesi.')}</h1>
+          <h1 className="display xxl">{splitWords('Cildin yeniden yazılan hikayesi')}</h1>
           <p className="lead intro-up">Kore biyoteknolojisi ile geliştirilen Exosome ve lipozomal içerik teknolojileri; EGF destekli kabin ve ev devam bakım serisi.</p>
           <div className="hero-actions intro-up">
             <Link to="/uygulama" className="btn btn-light">
