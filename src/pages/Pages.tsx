@@ -180,7 +180,7 @@ export function About() {
   const page = usePage('Hakkımızda')
   return (
     <div ref={page}>
-      <PageHero eyebrow="Hakkımızda" title="Kore biyoteknolojisi ile çatlak bakımına bütüncül bir yaklaşım" crumbs={[{ label: 'Hakkımızda' }]} image={img('ev-tall')} />
+      <PageHero eyebrow="Hakkımızda" title="Kore Biyoteknolojisi ile Çatlak Bakımına Bütüncül Bir Yaklaşım" keepCase crumbs={[{ label: 'Hakkımızda' }]} image={img('ev-tall')} />
       <section className="section">
         <div className="wrap split">
           <p className="display s rv">{about[0]}</p>

@@ -82,7 +82,7 @@ export function Crumbs({ items }: { items: { to?: string; label: string }[] }) {
 }
 
 // İç sayfa başlığı: koyu yeşil zemin, ağaç filigranı, kelime kelime yükselen başlık
-export function PageHero({ eyebrow, title, text, crumbs, image, children }: { eyebrow: string; title: string; text?: string; crumbs: { to?: string; label: string }[]; image?: string; children?: ReactNode }) {
+export function PageHero({ eyebrow, title, text, crumbs, image, children, keepCase }: { eyebrow: string; title: string; text?: string; crumbs: { to?: string; label: string }[]; image?: string; children?: ReactNode; keepCase?: boolean }) {
   return (
     <section className={`phero ${image ? 'has-img' : ''}`}>
       {!image && <div className="phero-tree" aria-hidden />}
@@ -90,7 +90,7 @@ export function PageHero({ eyebrow, title, text, crumbs, image, children }: { ey
         <div className="phero-copy">
           <Crumbs items={crumbs} />
           <p className="eyebrow intro-up">{capsBrand(eyebrow)}</p>
-          <h1 className="display xl intro-words">{splitWords(title)}</h1>
+          <h1 className={`display xl intro-words ${keepCase ? 'keep-case' : ''}`}>{splitWords(title)}</h1>
           {text && <p className="lead intro-up">{text}</p>}
           {children}
         </div>
