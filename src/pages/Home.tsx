@@ -415,7 +415,7 @@ function Catalog() {
     <section className="catalog section">
       <div className="wrap catalog-in">
         <div className="catalog-cover rv-img">
-          <img src={`${BASE}img/insta1.webp`} alt="Protocol Stria profesyonel katalog" loading="lazy" />
+          <img src={`${BASE}img/catalog-set.webp`} alt="Protocol Stria vakum cihazı ve ürün seti" loading="lazy" />
         </div>
         <div className="rv">
           <p className="eyebrow">Protocol Stria</p>
