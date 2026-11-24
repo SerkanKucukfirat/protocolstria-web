@@ -1040,6 +1040,10 @@ a:hover > .arrow,
 .pgrid.n3 {
   grid-template-columns: repeat(3, 1fr);
 }
+.pgrid.n2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 880px;
+}
 
 /* ---------- steps ---------- */
 .steps-grid {

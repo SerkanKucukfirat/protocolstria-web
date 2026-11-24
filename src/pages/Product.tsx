@@ -41,7 +41,11 @@ export default function ProductPage() {
   }, [slug])
   if (!p) return <NotFound />
   const L = lines[p.line]
-  const others = products.filter(x => x.slug !== p.slug && x.line === p.line).concat(products.filter(x => x.line !== p.line)).slice(0, 3)
+  // cabin products are used together only with the other cabin products (no soap or home-care items)
+  const others = (p.line === 'kabin'
+    ? products.filter(x => x.slug !== p.slug && x.line === 'kabin')
+    : products.filter(x => x.slug !== p.slug && x.line === p.line).concat(products.filter(x => x.line !== p.line))
+  ).slice(0, 3)
   const use = usage(p.slug)
   return (
     <div ref={page} key={p.slug}>
@@ -132,7 +136,7 @@ export default function ProductPage() {
             <p className="eyebrow rv">Protocol STRIA bakım serisi</p>
             <h2 className="display l rv">Birlikte kullanılanlar</h2>
           </div>
-          <div className="pgrid n3 rv-stagger">
+          <div className={`pgrid n${others.length} rv-stagger`}>
             {others.map(x => (
               <ProductCard key={x.slug} p={x} />
             ))}
