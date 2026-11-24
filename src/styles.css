@@ -975,12 +975,13 @@ a:hover > .arrow,
   transform: translateZ(10px);
 }
 .pcard-stage img {
+  /* every product stands on the same line at the same height (the soap may run wider) */
   position: absolute;
-  inset: 0;
-  margin: auto;
-  height: 68%;
+  inset: auto 0 15% 0;
+  margin: 0 auto;
+  height: 66%;
   width: auto;
-  max-width: 68%;
+  max-width: 86%;
   object-fit: contain;
   transform: translateZ(28px);
   transition: transform 0.9s var(--ease);
@@ -1186,11 +1187,11 @@ a:hover > .arrow,
 }
 .rcard-stage img {
   position: absolute;
-  inset: 0;
-  margin: auto;
-  height: 70%;
+  inset: auto 0 14% 0;
+  margin: 0 auto;
+  height: 68%;
   width: auto;
-  max-width: 64%;
+  max-width: 86%;
   object-fit: contain;
   transform: translateZ(24px);
   filter: drop-shadow(0 24px 24px rgba(0, 0, 0, 0.22));
@@ -1637,18 +1638,18 @@ a:hover > .arrow,
 }
 .prod-shot img {
   position: absolute;
-  inset: 0;
-  margin: auto;
+  inset: auto 0 12% 0;
+  margin: 0 auto;
   height: 74%;
   width: auto;
-  max-width: 70%;
+  max-width: 88%;
   object-fit: contain;
   transform: translateZ(30px);
   filter: drop-shadow(0 50px 50px rgba(0, 0, 0, 0.45));
 }
 .prod-floor {
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   width: 46%;
   height: 26px;
   border-radius: 50%;
