@@ -85,11 +85,11 @@ export function Technology() {
 
 // Training videos (shared Google Drive folder). They play on the page; a link opens them on Drive.
 const TRAINING_VIDEOS = [
-  { id: '1R-nFnTI-DKd19BBeqjQZtHMDn1Fn4sk3', title: 'Çatlak uygulaması', text: 'Protocol Stria kabin uygulamasının adım adım anlatımı.', poster: 'video-stria' },
-  { id: '1nUsej6U-GT-F8slK2VhasilCP2b_VJe1', title: 'G5 uygulaması', text: 'Kabin ürünleri ile G5 destekli selülit bakımı uygulaması.', poster: 'video-g5' },
+  { id: '1R-nFnTI-DKd19BBeqjQZtHMDn1Fn4sk3', youtube: '24GAc36NyJk', title: 'Çatlak uygulaması', text: 'Protocol Stria kabin uygulamasının adım adım anlatımı.', poster: 'video-stria' },
+  { id: '1nUsej6U-GT-F8slK2VhasilCP2b_VJe1', youtube: 'QiJJ8RQSdnU', title: 'G5 uygulaması', text: 'Kabin ürünleri ile G5 destekli selülit bakımı uygulaması.', poster: 'video-g5' },
 ]
 
-function TrainingVideo({ id, title, text, poster }: { id: string; title: string; text: string; poster: string }) {
+function TrainingVideo({ id, youtube, title, text, poster }: { id: string; youtube: string; title: string; text: string; poster: string }) {
   const [play, setPlay] = useState(false)
   return (
     <article className="video-card">
@@ -107,8 +107,8 @@ function TrainingVideo({ id, title, text, poster }: { id: string; title: string;
       </div>
       <h3>{title}</h3>
       <p>{text}</p>
-      <a className="link" href={`https://drive.google.com/file/d/${id}/view`} target="_blank" rel="noreferrer">
-        Drive'da aç <Arrow />
+      <a className="link" href={`https://www.youtube.com/watch?v=${youtube}`} target="_blank" rel="noreferrer">
+        YouTube'da izle <Arrow />
       </a>
     </article>
   )
